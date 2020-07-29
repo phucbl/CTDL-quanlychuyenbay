@@ -41,7 +41,7 @@ NODEPTRCB New_node(void)
 }		
 NODEPTRCB search_info(NODEPTRCB First, char x[16])
 {
-	NODEPTRCB p;int ii=1;
+	NODEPTRCB p;
 	p = First;
 	while(p != NULL && strcmp(p->cb.machbay,x)!=0){
 		p = p->next;
@@ -162,7 +162,7 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	   //strcpy(cb.timebay,str);strcpy(str,"");
 	  // i=0;
 	 //}
-	 //TangLuotBay(ds1,d);
+	 TangLuotBay(ds1,d);
 	 cb.socot=ds1.nodes[d]->soday;cb.sodong=ds1.nodes[d]->sodong;cb.timebay=time;
 	if (CompareDateTimeToNow(cb.timebay)==0) strcpy(cb.trangthai,"3"); else strcpy(cb.trangthai,"1");
 	 return 1;
@@ -465,6 +465,70 @@ int ChonVe(NODEPTRCB p)
 		}//end switch keyboard
 	}
 	return 0;
+}
+NODEPTRCB CheckVeChuyenBayKhac( nodeCB dscb, NODEPTRCB p, char cmnd[13]){
+	
+{	
+	DATETIME dt1,dt2; // 'dt1' la thoi gian sau 'timebay' NH tieng, 'dt2' la thoi gian truoc 'timebay' NH tieng
+	dt1=p->cb.timebay;dt2=p->cb.timebay; int nh=5;
+	if (dt1.h+nh>23)
+	{
+		if ((dt1.y % 400 == 0) || (dt1.y % 4 == 0 && dt1.y % 100 != 0))	nDayOfMonth[2] = 29;
+		if (dt1.m==nDayOfMonth[dt1.m]) 
+			{
+			if (dt1.m==12) 
+			{
+				dt1.y++;
+				dt1.d=1;
+				dt1.m=1;
+				dt1.h=dt1.h+nh-24;
+			}
+			dt1.m++;
+			dt1.d=1;
+			dt1.h=dt1.h+nh-24;
+			}
+	dt1.d++;
+	dt1.h=dt1.h+nh-24;
+	}
+	dt1.h=dt1.h+nh;
+	if (dt2.h-nh<0)
+	{
+		if ((dt2.y % 400 == 1) || (dt2.y % 4 == 1 && dt2.y % 100 != 1))	nDayOfMonth[2] = 29;
+		if (dt2.d==1)
+		{
+			if(dt2.m==1){
+			dt2.y--;
+			dt2.m=12;
+			dt2.d=31;
+			dt2.h=24-dt2.h+nh;
+			}
+			dt2.m--;
+			dt2.d=nDayOfMonth[dt2.m];
+			dt2.h=24-dt2.h+nh;
+			
+		}
+		dt2.d--;
+		dt2.h=24-dt2.h+nh;
+		
+	}
+	dt2.h=dt2.h-nh;
+	
+	NODEPTRCB q;
+	q=First;
+	while (q!=NULL){
+		int a=Compare2DateTime(q->cb.timebay,dt2);
+		int b=Compare2DateTime(dt1,q->cb.timebay);
+		//cout<<q->cb.machbay<<" ";OutputDateTime(dt1);cout<<" ";OutputDateTime(dt2);
+		//cout<<q->cb.machbay<<" "<<a;cout<<" "<<b;
+		if(Compare2DateTime(q->cb.timebay,dt2)==0 && Compare2DateTime(dt1,q->cb.timebay)==0)
+		{
+			for (int i=0; i<(q->cb.socot*q->cb.sodong);i++)
+				if (strcmp(q->cb.dsve[i].cmnd,cmnd)==0) return q;
+		}
+		q=q->next;
+	}
+	return NULL;
+}
 }
 void SaveFileCB(NODEPTRCB First,char *filename) {
  FILE * f; ChuyenBay cb;

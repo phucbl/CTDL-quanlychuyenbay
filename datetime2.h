@@ -62,6 +62,15 @@ int CompareDateTimeToNow(DATETIME dt2)
 	return 0;
 	//return dt1.d == dt2.d && dt2.m == dt1.m && dt1.y == dt2.y;
 }
+int Compare2DateTime (DATETIME dt1,DATETIME dt2){
+	if (dt2.y > dt1.y ) return 1;if (dt2.y < dt1.y ) return 0;
+	if (dt2.m > dt1.m) return 1;if (dt2.m < dt1.m) return 0;
+	//if ((dt.y % 400 == 0) || (dt.y % 4 == 0 && dt.y % 100 != 0))	nDayOfMonth[2] = 29;
+	if (dt2.d > dt1.d) return 1;if (dt2.d < dt1.d) return 0;
+	if (dt2.h > dt1.h) return 1;if (dt2.h < dt1.h) return 0;
+	if (dt2.mi > dt1.mi) return 1;if (dt2.mi <= dt1.mi) return 0;
+	return 0;
+}
 
 bool IsRightMonth(DATETIME dt)
 {	

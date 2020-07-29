@@ -90,6 +90,14 @@ void LietKe (listmb ds) {
      ds.nodes[i]->loaimb, ds.nodes[i]->soday, ds.nodes[i]->sodong,ds.nodes[i]->luotbay);
  getch();
 }
+void ThongKeLuotBay (listmb ds) {
+ printf ("                     DANH SACH MAY BAY \n");
+ printf ("   So hieu                Loai              Luot Bay\n");
+ for (int i =0 ; i < ds.n ; i++)
+  printf ("%15s %15s %10d \n", ds.nodes[i]->sohieumb, 
+     ds.nodes[i]->loaimb, ds.nodes[i]->luotbay);
+ getch();
+}
 
 
 void SuaMb( listmb &ds, int i) { 
@@ -169,4 +177,14 @@ int InsertOrderMB (listmb &ds, Maybay mb){
 	*ds.nodes[j]=mb; ds.n++;
 	return 1;
 	
+}
+void InsertOrderLuotBay(listmb &ds, Maybay mb){
+	int j, k;
+	if (ds.n ==MAXLIST ) return ;
+	for (j=0; j < ds.n && ds.nodes[j]->luotbay>mb.luotbay; j++ );
+	for ( k = ds.n-1; k >=j  ; k--) 
+	   ds.nodes[k+1]= ds.nodes[k];
+	ds.nodes[j]= new Maybay;
+	*ds.nodes[j]=mb; ds.n++;
+	return ;
 }

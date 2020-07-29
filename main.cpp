@@ -8,7 +8,7 @@ int main (){
   system ("cls"); Normal();
   
 	
-  int chon,chon2;  listmb dsmb; dsmb.n=0; char sohieu[16]; Maybay mb; ChuyenBay cb; nodeCB dscb;int chona=1;int chonb=1;
+  int chon,chon2;  listmb dsmb,dsmbluotbay; dsmb.n=0; char sohieu[16]; Maybay mb; ChuyenBay cb; nodeCB dscb;int chona=1;int chonb=1;
   char tempCMND[13];
   initialize(First);
   InitializeTree(tree);
@@ -59,7 +59,14 @@ int main (){
 	       
 		  strcpy(sohieu,"");break;
 	    };
-	case 4: { cout<<dsmb.n;Sleep(500);
+	case 4: { Maybay mblb;
+				dsmbluotbay.n=0;
+				for (int i = 0; i<dsmb.n; i++)
+					{	
+					mblb=*dsmb.nodes[i];
+					InsertOrderLuotBay(dsmbluotbay,mblb);
+					}
+					ThongKeLuotBay(dsmbluotbay);
 		  break;
 	    };    
 	
@@ -152,6 +159,11 @@ int main (){
 				{	
 				cout<<"Da co thong tin  \nCMND: "<<ptemp->cmnd;
 				cout<<"\nHo :"<<ptemp->ho<<"\nTen: "<<ptemp->ten<<"\nPhai: "<<ptemp->phai<<"\n";
+				NODEPTRCB q;
+				q=CheckVeChuyenBayKhac(dscb,p,strcmnd);
+				if (q!=NULL) {
+					cout<<"CMND nay da dat ve tren chuyen bay "<<q->cb.machbay<<" vao luc ";OutputDateTime(q->cb.timebay);cout<< ".Khong the dat ve nay!!!";getch();break;
+				} 
 				strcpy(p->cb.dsve[k - 1].cmnd,ptemp->cmnd);}
 				char yn[5];
 				cout<<"Xac nhan thong tin va dat ve (Y de dong y)";cin>>yn;if (strcmp(yn,"y")!=0) break; 
