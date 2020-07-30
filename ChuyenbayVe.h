@@ -152,7 +152,7 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	 i=1;
 	 //while (i==1){
 		//NhapChuoi (  "Nhap time khoi hanh: ", str);
-		ValidDateTime(time);OutputDateTime(time);getch();
+		ValidDateTime(time);
 		//if (strcmp(str,"0")==0) return 0;
 		/*if (CheckChuoi(str,1,25)==-1) 
 	   {   
@@ -163,8 +163,9 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	  // i=0;
 	 //}
 	 TangLuotBay(ds1,d);
-	 cb.socot=ds1.nodes[d]->soday;cb.sodong=ds1.nodes[d]->sodong;cb.timebay=time;
+	 cb.socot=ds1.nodes[d]->soday;cb.sodong=ds1.nodes[d]->sodong;cb.timebay=time;cb.dsve = new Ve[MAXVE];
 	if (CompareDateTimeToNow(cb.timebay)==0) strcpy(cb.trangthai,"3"); else strcpy(cb.trangthai,"1");
+	BaoLoi ("Da them chuyen bay.");
 	 return 1;
 	
 }
@@ -251,7 +252,7 @@ void traverse(NODEPTRCB &First)
 					if (strcmp(p->cb.trangthai,"2")==0) strcpy(tt,"Het ve");
 					if (strcmp(p->cb.trangthai,"3")==0) strcpy(tt,"Hoan tat");
 				
-				printf("\n %15s %30s %15s       ", p->cb.machbay, p->cb.noiden,p->cb.sohieumaybay);OutputDateTime(p->cb.timebay); printf("%10s ",tt);
+				printf("\n %15s %30s %15s       ", p->cb.machbay, p->cb.noiden,p->cb.sohieumaybay);OutputDateTime(p->cb.timebay); printf("%20s ",tt);
       p = p->next;
    }
 }
@@ -401,11 +402,11 @@ void   EditMenu(int index, int preColor, int cot, int dong)
 int ChonVe(NODEPTRCB p)
 {	ChuyenBay cb;
 	cb=p->cb;
-	gotoxy(5, 5); cout << " CHON GHE MUON DAT";
+	gotoxy(5, 5); cout << " CHON GHE MUON DAT. SO VE DA BAN: "<<cb.sovedaban;
 	//reset locate
 	currposVe = 1;
 	currposVeT = 1;
-	MenuVe(cb);
+	MenuVe(p->cb);
 	
 	int keyboard_read = 0;
 	int PASS = 1;
@@ -493,7 +494,7 @@ NODEPTRCB CheckVeChuyenBayKhac( nodeCB dscb, NODEPTRCB p, char cmnd[13]){
 	dt1.h=dt1.h+nh;
 	if (dt2.h-nh<0)
 	{
-		if ((dt2.y % 400 == 1) || (dt2.y % 4 == 1 && dt2.y % 100 != 1))	nDayOfMonth[2] = 29;
+		
 		if (dt2.d==1)
 		{
 			if(dt2.m==1){
@@ -502,6 +503,7 @@ NODEPTRCB CheckVeChuyenBayKhac( nodeCB dscb, NODEPTRCB p, char cmnd[13]){
 			dt2.d=31;
 			dt2.h=24-dt2.h+nh;
 			}
+			if ((dt2.y % 400 == 0) || (dt2.y % 4 == 0 && dt2.y % 100 != 0))	nDayOfMonth[2] = 29;
 			dt2.m--;
 			dt2.d=nDayOfMonth[dt2.m];
 			dt2.h=24-dt2.h+nh;

@@ -8,7 +8,8 @@ int main (){
   system ("cls"); Normal();
   
 	
-  int chon,chon2;  listmb dsmb,dsmbluotbay; dsmb.n=0; char sohieu[16]; Maybay mb; ChuyenBay cb; nodeCB dscb;int chona=1;int chonb=1;
+  int chon,chon2;  listmb dsmb,dsmbluotbay; dsmb.n=0; char sohieu[16];
+  Maybay mb; ChuyenBay cb; nodeCB dscb;int chona=1;int chonb=1;
   char tempCMND[13];
   initialize(First);
   InitializeTree(tree);
@@ -118,11 +119,11 @@ int main (){
 		SaveHanhKhach(tree);
 		break;
 	}
-	case 13: {	//ChuyenBay cb2;
+	case 13: {	
 				p = search_info2(First);
 				if (p!=NULL) 
 				{
-					//cb2=p->cb;
+					
 				if (strcmp(p->cb.trangthai,"1")==0||strcmp(p->cb.trangthai,"2")==0){
 					if (CompareDateTimeToNow(p->cb.timebay)==0) strcpy(p->cb.trangthai,"3");
 				
@@ -139,8 +140,7 @@ int main (){
 					k = ChonVe(p);
 					if (p->cb.dsve[k - 1].trth == 1 && k != -1)
 					{
-						BaoLoi(" VE DA CO NGUOI DAT ");
-						
+						BaoLoi(" VE DA CO NGUOI DAT ");	
 					}
 					
 				} while (p->cb.dsve[k - 1].trth == 1 && k != -1);
@@ -162,26 +162,27 @@ int main (){
 				NODEPTRCB q;
 				q=CheckVeChuyenBayKhac(dscb,p,strcmnd);
 				if (q!=NULL) {
-					cout<<"CMND nay da dat ve tren chuyen bay "<<q->cb.machbay<<" vao luc ";OutputDateTime(q->cb.timebay);cout<< ".Khong the dat ve nay!!!";getch();break;
+					cout<<"CMND nay da dat ve tren chuyen bay "<<q->cb.machbay<<" vao luc ";
+					OutputDateTime(q->cb.timebay);cout<< ".Khong the dat ve nay!!!";getch();break;
 				} 
-				strcpy(p->cb.dsve[k - 1].cmnd,ptemp->cmnd);}
+				}
 				char yn[5];
-				cout<<"Xac nhan thong tin va dat ve (Y de dong y)";cin>>yn;if (strcmp(yn,"y")!=0) break; 
+				cout<<"Xac nhan thong tin va dat ve (nhap y de dong y)";cin>>yn;if (strcmp(yn,"y")!=0) break; 
+				strcpy(p->cb.dsve[k - 1].cmnd,ptemp->cmnd);
 				p->cb.dsve[k - 1].trth = 1;
 				p->cb.sovedaban++;
 				if (p->cb.socot*p->cb.sodong== p->cb.sovedaban) strcpy(p->cb.trangthai,"2");
 				BaoLoi(" DAT THANH CONG ");
-				//p->cb=cb2;
+				p=NULL;
 				}
 			
 		break;
 	}
 	case 14: { 
-				ChuyenBay cb2;
 				p = search_info2(First);
 				if (p!=NULL) 
 				{
-					//cb2=p->cb;
+				
 				if (strcmp(p->cb.trangthai,"1")==0||strcmp(p->cb.trangthai,"2")==0){
 					if (CompareDateTimeToNow(p->cb.timebay)==0) strcpy(p->cb.trangthai,"3");
 				
@@ -210,26 +211,28 @@ int main (){
 					system("cls");
 					break;
 				}
-				if (strcmp(p->cb.dsve[k - 1].cmnd,"")==0) {bool yn;
+				system("cls");
+				/*if (strcmp(p->cb.dsve[k - 1].cmnd,"")==0) {bool yn;
 				cout<<"Xac nhan thong tin va huy ve ( nhap 1 de dong y)";cin>>yn;if (yn!=1) break;
 				p->cb.dsve[k - 1].trth = 0;
-				cb2.sovedaban--;
+				p->cb.sovedaban--;
 				if (p->cb.socot*p->cb.sodong< p->cb.sovedaban) strcpy(p->cb.trangthai,"1");
 				BaoLoi(" HUY VE THANH CONG ");	break;
-				}
+				}*/
 				NODEPTRHK ptemp;
-				ptemp=TimVaLayCMND(tree,p->cb.dsve[k - 1].cmnd);
+				ptemp=TimVaLayCMND(tree,p->cb.dsve[k - 1].cmnd);cout<<"Huy ve tren chuyen bay "<<p->cb.machbay<<"\n";
 				cout<<"Thong tin  \nCMND: "<<ptemp->cmnd;
 				cout<<"\nHo :"<<ptemp->ho<<"\nTen: "<<ptemp->ten<<"\nPhai: "<<ptemp->phai<<"\n";
 				strcpy(p->cb.dsve[k - 1].cmnd,ptemp->cmnd);
 				char yn[5];
-				cout<<"Xac nhan thong tin va huy ve ( nhap 1 de dong y)";cin>>yn;if (strcmp(yn,"y")!=0) break;
+				cout<<"Xac nhan thong tin va huy ve (nhap y de dong y)";cin>>yn;if (strcmp(yn,"y")!=0) break;
 				strcpy(p->cb.dsve[k - 1].cmnd,"");
 				p->cb.dsve[k - 1].trth = 0;
 				p->cb.sovedaban--;
+				
 				if (p->cb.socot*p->cb.sodong< p->cb.sovedaban) strcpy(p->cb.trangthai,"1");
 				BaoLoi(" HUY VE THANH CONG ");
-				//p->cb=cb2;
+				p=NULL;
 			}
 	break;
 	}
