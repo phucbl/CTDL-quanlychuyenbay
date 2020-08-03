@@ -67,6 +67,7 @@ char thucdon2 [so_item2][50] = {"",
 			                  	"2. Sua    ",
 			                  	"3. Xoa    ",			                  	
 			                };   
+char Phai [2][5] = {"Nam","Nu"};
 inline int num(char x){ return x - '0';}
 void Normal () {
 	SetColor(15);
