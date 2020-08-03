@@ -166,7 +166,7 @@ int main (){
 				} else
 				{	
 				cout<<"Da co thong tin  \nCMND: "<<ptemp->cmnd;
-				cout<<"\nHo :"<<ptemp->ho<<"\nTen: "<<ptemp->ten<<"\nPhai: "<<Phai[ptemp->phai]<<"\n";
+				cout<<"\nHo :"<<ptemp->ho<<"\nTen: "<<ptemp->ten<<"\nPhai: "<<ptemp->phai<<"\n";
 				NODEPTRCB q;
 				q=CheckVeChuyenBayKhac(dscb,p,strcmnd);
 				if (q!=NULL) {
@@ -230,7 +230,7 @@ int main (){
 				NODEPTRHK ptemp;
 				ptemp=TimVaLayCMND(tree,p->cb.dsve[k - 1].cmnd);cout<<"Huy ve tren chuyen bay "<<p->cb.machbay<<"\n";
 				cout<<"Thong tin  \nCMND: "<<ptemp->cmnd;
-				cout<<"\nHo :"<<ptemp->ho<<"\nTen: "<<ptemp->ten<<"\nPhai: "<<Phai[ptemp->phai]<<"\n";
+				cout<<"\nHo :"<<ptemp->ho<<"\nTen: "<<ptemp->ten<<"\nPhai: "<<ptemp->phai<<"\n";
 				strcpy(p->cb.dsve[k - 1].cmnd,ptemp->cmnd);
 				char yn[5];
 				cout<<"Xac nhan thong tin va huy ve (nhap y de dong y)";cin>>yn;if (strcmp(yn,"y")!=0) break;
