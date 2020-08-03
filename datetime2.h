@@ -71,6 +71,13 @@ int Compare2DateTime (DATETIME dt1,DATETIME dt2){
 	if (dt2.mi > dt1.mi) return 1;if (dt2.mi <= dt1.mi) return 0;
 	return 0;
 }
+int IsSame2Date (DATETIME dt1,DATETIME dt2){
+	if (dt2.y != dt1.y) return 0;
+	if (dt2.m != dt1.m) return 0;
+	if (dt2.d != dt1.d) return 0;
+	return 1;
+}
+
 
 bool IsRightMonth(DATETIME dt)
 {	
@@ -198,7 +205,92 @@ void ValidDateTime(DATETIME &dt)
 		flagDateTime = false;
 	}
 }
+void ValidDate(DATETIME &dt)
+{
+	//time_t now = time(0);
+	//tm *ltm = localtime(&now);
+	DATETIME dtFlight;
+	
+	//dtNow.y = 1900 + ltm->tm_year;
+	//dtNow.m = 1 + ltm->tm_mon;
+	//dtNow.d = ltm->tm_mday;
+	//dtNow.h = ltm->tm_hour;
+	//dtNow.mi = ltm->tm_min;
 
+	bool flagDateTime = true;
+	while(flagDateTime)
+	{
+		//OutputDateTime(dtNow);
+		
+		bool flagSize = true;
+		while(flagSize)
+		{
+				cout << endl << "Nhap datetime: ";
+				fflush(stdin);
+				getline(std::cin, strDateTime); cout << endl;
+				if (strDateTime.length() == 10)
+					flagSize = false;
+				else
+					cout << "Nhap thieu hoac du ky tu";
+		}
+		
+		char day[] = {strDateTime[0], strDateTime[1]};
+		char month[] = {strDateTime[3], strDateTime[4]};
+		char year[] = {strDateTime[6], strDateTime[7], strDateTime[8], strDateTime[9]};
+		char hour[] = {strDateTime[11], strDateTime[12]};
+		char minute[] = {strDateTime[14], strDateTime[15]};
+		int y, m, d, h, mi;
+		
+		if(isRightDateTime(year, 4))
+			y = ConvertCharToInt(year, 4);
+		else
+		{
+			cout << "Nhap nam khong dung" << endl;
+			continue;
+		}
+		
+			
+		if(isRightDateTime(month, 2))
+			m = ConvertCharToInt(month, 2);	
+		else
+		{
+			cout << "Nhap thang khong dung" << endl;
+			continue;
+		}
+		if(m > 12 || m < 1)
+		{
+			cout << "Nhap thang khong dung" << endl;
+			continue;
+		}
+		
+		nDayOfMonth[2] = 28;
+		if ((dtFlight.y % 400 == 0) || (dtFlight.y % 4 == 0 && dtFlight.y % 100 != 0))
+		nDayOfMonth[2] = 29;
+		
+		if(isRightDateTime(day, 2))
+			d = ConvertCharToInt(day, 2);	
+		else
+		{
+			cout << "Nhap ngay khong dung" << endl;
+			continue;
+		}
+		if(d > nDayOfMonth[m])
+		{
+			cout << "Nhap ngay khong dung" << endl;
+			continue;
+		}
+			
+		
+		
+		dtFlight.y = y;
+		dtFlight.m = m;
+		dtFlight.d = d;
+		dtFlight.mi= 0;
+		dtFlight.h=0;
+		dt = dtFlight;
+		flagDateTime = false;
+	}
+}
 /*int main()
 {
 	DATETIME dtFlight;

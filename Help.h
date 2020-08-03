@@ -8,6 +8,8 @@
 #include <mylib.h>
 #include <iomanip>
 
+
+
 using namespace std;
 
 //keyboard
@@ -25,8 +27,8 @@ const int Purple = 5;
 //menu
 const int so_item = 18;
 const int so_item2 = 4;
-const int dong =2;
-const int cot = 2;
+const int dong =1;
+const int cot = 1;
 int currposVe = 1;
 int currposVeT = 1;
 //max tt mb-cb
@@ -41,23 +43,23 @@ char filenameHK[80]="D:\\DSHK.TXT";
 char mangchucai [10][2] = {" ","A","B","C","D","E","F","G","H","I"};
 char mangchuso[10][2]= {"0","1","2","3","4","5","6","7","8","9"};
 char thucdon [so_item][50] = {	"------------MAYBAY--------------",
-							  	"1. Them 1 may bay               ",
-			                  	"2. Liet ke danh sach may bay    ",
-			                  	"3. Tim/sua/xoa may bay          ",
-			                  	"4. Thong ke luot bay            ",
-			                  	"5. Save MB                      ",
+							  	"   Them 1 may bay               ",
+			                  	"   Liet ke danh sach may bay    ",
+			                  	"   Tim/sua/xoa may bay          ",
+			                  	"   Thong ke luot bay            ",
+			                  	"   Save MB                      ",
 			                  	"------------CHUYENBAY-----------",
-			                  	"1. Them 1 chuyen bay            ",
-			                   	"2. Liet ke danh sach chuyen bay ",
-			                   	"3. Tim/sua/xoa chuyen bay       ",
-			                   	"4. Huy chuyen bay               ",
-			                   	"5. Save CB                      ",
+			                  	"   Them 1 chuyen bay            ",
+			                   	"   Liet ke danh sach chuyen bay ",
+			                   	"   Tim/sua/xoa chuyen bay       ",
+			                   	"   Huy chuyen bay               ",
+			                   	"   Save CB                      ",
 			                   	"------------VE------------------",
-			                  	"1. Dat ve                       ",
-			                   	"2. Huy ve                       ",
-			                   	"3. -----------------            ",
-			                   	"4.                              ",
-			                   	"5. Save CB                      ",
+			                  	"   Dat ve                       ",
+			                   	"   Huy ve                       ",
+			                   	"   Tra chuyen bay theo ngay     ",
+			                   	"                                ",
+			                   	"   Save CB                      ",
 			                   	
 			                };   
 char thucdon2 [so_item2][50] = {"",
@@ -74,10 +76,22 @@ void HighLight () {
 	SetColor(15);
 	SetBGColor(1);
 }
-
+void KhungMenu(){
+	gotoxy (0,0);
+	cout << char(201) << setw(33) << setfill(char(205)) << char(205) << char(203)<<setw(75) << setfill(char(205)) << char(205)<< char (187);
+	for (int i=1;i<19;i++)
+		{
+			gotoxy (0,i);cout << char(186);
+			gotoxy (34,i);cout<<char(186);
+			gotoxy (110,i);cout<<char(186);
+		}
+	gotoxy (0,19);
+	cout << char(200) << setw(33) << setfill(char(205)) << char(205) << char(202)<<setw(75) << setfill(char(205)) << char(205)<< char (188);	
+}
 int MenuDong(char td [so_item][50], int &chon){
   Normal();
   system("cls");   
+  KhungMenu();
   int i; 
   for ( i=0; i< so_item ; i++)
   { gotoxy(cot, dong +i);
@@ -233,3 +247,4 @@ int CheckChuoi (char *S, int a, int b){
 	}
 	return 1;		
 }
+

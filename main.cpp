@@ -50,7 +50,8 @@ int main (){
 				      				c=0;
 								break;
 							  }
-				      		case 3: {XoaMb(dsmb,d); 
+				      		case 3: {
+							  		XoaMb(dsmb,d);
 				      				c=0;
 								break;
 							  }
@@ -100,6 +101,9 @@ int main (){
 								break;
 							  }
 				      		case 3: { 	printf( " So hieu chuyen bay : %s", p->cb.machbay);cout<<"\n";
+				      					if (p->cb.sovedaban>0) {
+				      						cout<<"Da ban ve. Khong the xoa chuyen bay nay!!!"; getch(); c=0; break;
+										  }
 							  			XoaCB(dscb,cb,p); 
 				      					c=0;
 								break;
@@ -110,7 +114,11 @@ int main (){
 			}
 	case 10: {	
 				p = search_info2(First);
-				if (p!=NULL) HuyCB(dscb,cb,dsmb,p);
+				if (p!=NULL) 
+					if (strcmp(p->cb.trangthai,"3")==0){
+						cout<<"Chuyen bay da hoan tat. Khong the huy chuyen bay nay!!!"; getch(); break;
+					}
+				HuyCB(dscb,cb,dsmb,p);
 				break;
 				}
 
@@ -237,7 +245,7 @@ int main (){
 	break;
 	}
 	
-	case 15: { 
+	case 15: { TimChuyenBayDatePlace();
 		break;
 	}
 	}

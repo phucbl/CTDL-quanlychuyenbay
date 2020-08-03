@@ -123,6 +123,9 @@ void SuaMb( listmb &ds, int i) {
 void TangLuotBay( listmb ds, int i) { 
 	ds.nodes[i]->luotbay++;
 }
+void GiamLuotBay( listmb ds, int i) { 
+	ds.nodes[i]->luotbay--;
+}
 
 void SaveFileMB(listmb ds,char *filename) {
  FILE * f;
@@ -154,6 +157,9 @@ void OpenFileMB(listmb &ds, char *filename) {
 }
 void XoaMb(listmb &ds, int i){
   
+   if (ds.nodes[i]->luotbay>0) {
+   	cout<<"May bay da co lich bay. Khong the xoa"; getch(); return ;
+   }
    char yn[5];
    NhapChuoi (  "Ban co chac chan xoa so hieu may bay nay (nhap Y de dong y): ", yn) ;
    if (strcmp(yn,"Y")==0){

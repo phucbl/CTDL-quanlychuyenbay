@@ -532,6 +532,24 @@ NODEPTRCB CheckVeChuyenBayKhac( nodeCB dscb, NODEPTRCB p, char cmnd[13]){
 	return NULL;
 }
 }
+void TimChuyenBayDatePlace( ){
+	char noiden[30];DATETIME date;
+	NhapChuoi("Nhap noi den: ",noiden);
+	ValidDate(date);
+	NODEPTRCB p;int count=0;
+    p = First;
+    while (p!=NULL){
+    	if (strcmp(p->cb.noiden,noiden)==0 && IsSame2Date(date,p->cb.timebay)==1){
+    		int sovecon = (p->cb.sodong*p->cb.socot) - p->cb.sovedaban;
+    		cout<<p->cb.machbay<<"\t"<<sovecon<<"\t";OutputDateTime(p->cb.timebay);cout<<"\n";
+    		count++;
+		}
+		p=p->next;
+	}
+	if (count==0) cout<<"Khong co chuyen bay phu hop!";
+	getch();
+    
+}
 void SaveFileCB(NODEPTRCB First,char *filename) {
  FILE * f; ChuyenBay cb;
  if ((f=fopen(filename,"w"))==NULL)
