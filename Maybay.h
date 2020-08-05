@@ -1,5 +1,7 @@
 #pragma once 
 #include "Help.h"
+#include <stdio.h>
+#include <conio.h>
 struct Maybay {
   char sohieumb[15];
   char loaimb [50];
@@ -13,17 +15,26 @@ struct listmb {
 };
 int Search(listmb ds, char x[15]) {
 	 for (int i =0; i < ds.n ; i++)
-     if (strcmp(ds.nodes[i]->sohieumb, x)==0)  {
-     	printf( " Thong tin : %8s \t %-5s \t%-5d\t %-5d\n", ds.nodes[i]->sohieumb, 
+     if (strcmp(ds.nodes[i]->sohieumb, x)==0)  { gotoxy(cotNhap,dongNhap+1);
+     	printf( "Thong tin:       So hieu MB         Loai MB        So Day   So Dong\n");
+     	gotoxy(cotNhap+6,dongNhap+2);
+		 printf (" %8s \t\t %-12s \t%-5d\t %-5d\n", ds.nodes[i]->sohieumb, 
      ds.nodes[i]->loaimb, ds.nodes[i]->soday, ds.nodes[i]->sodong);
      	return i;
 	 }
   return -1;
 }
+int Search2(listmb ds, char x[15]) {
+	 for (int i =0; i < ds.n ; i++)
+     if (strcmp(ds.nodes[i]->sohieumb, x)==0)  
+     	return i;
+	 
+  return -1;
+}
 int  NhapMB ( listmb &ds, Maybay &mb){
 	int i=1;char sh[30];char l[100];
 	while (i==1){
-		
+		gotoxy(cotNhap,dongNhap);
 	   NhapChuoi (  "Nhap so hieu may bay (=0 la ket thuc) : ", sh);
 	   if (strcmp(sh,"0")==0) return 0;
 	   if (CheckChuoi(sh,1,15)==-1) 
@@ -38,9 +49,10 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 		   strcat(f,sh);
 		   strcpy(sh,f);
 	   }
-	   int search=Search(ds,sh);
+	   int search=Search2(ds,sh);
 	   if (search>=0){
-	       BaoLoi ("So hieu bi trung "); 
+	       BaoLoi ("So hieu bi trung ");
+	       gotoxy(cotNhap,dongNhap); cout<<"                                                   ";
 	       continue;
 	   }
 	   	
@@ -48,6 +60,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 	   	}
 	   	i=1;
 	while (i==1){
+		gotoxy(cotNhap,dongNhap+1);
 		 NhapChuoi (  "Nhap loai may bay: ",l);
 		if (CheckChuoi(l,1,50)==-1) {
 	       BaoLoi ("Dinh dang sai "); 
@@ -58,11 +71,12 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 	i=1;
 	while (i==1){  
 		
-		
+		gotoxy(cotNhap,dongNhap+2);
 	    NhapChuoi (  "Nhap so day: ",sh);int b=CheckChuoi(sh,2,10);
 	    if (b==-1)
 		{
-	   		BaoLoi ("Nhap lai so day (<10)  "); 
+	   		BaoLoi ("Nhap lai so day (<10)  ");
+	   		gotoxy(cotNhap,dongNhap+2); cout<<"                                                   ";
 			continue;
 	   	}
 		mb.soday=b;i=0;}
@@ -70,11 +84,12 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 		
 	   	while (i==1){  
 		
-		
+		gotoxy(cotNhap,dongNhap+3);
 	    NhapChuoi (  "Nhap so dong: ",sh);int b=CheckChuoi(sh,2,100);
 	    if (b==-1)
 		{
-	   		BaoLoi ("Nhap lai so dong (<100)  "); 
+	   		BaoLoi ("Nhap lai so dong (<100)  ");
+	   		gotoxy(cotNhap,dongNhap+3); cout<<"                                                   ";
 			continue;
 	   	}
 		mb.sodong=b;i=0;}
@@ -101,19 +116,76 @@ void ThongKeLuotBay (listmb ds) {
 
 
 void SuaMb( listmb &ds, int i) { 
-	 //a=i;
-        char yn[5];   		
-		printf( " So hieu may bay : %s", ds.nodes[i]->sohieumb);cout<<"\n";
-		int a,b;
+	 
+	 int day,dong;
+        char yn[5];   	
+		gotoxy(cotMenuSua,dongMenuSua+1);
+		printf( "Sua so hieu may bay : %s", ds.nodes[i]->sohieumb);cout<<"\n";
+		char text[5];
 		char c[50];
-		NhapChuoi (  "Nhap loai may bay: ", c) ;
-		cout<<"Nhap so day: ";cin>>a;
-		cout<<"Nhap so dong: ";cin>>b;
+		gotoxy(cotMenuSua,dongMenuSua+3);
+		cout<<"         ";
+		int ooo =1;
+		while (ooo==1){
+			gotoxy(cotMenuSua,dongMenuSua+2);
+			printf(  "Nhap loai may bay: "); 
+			int lenght=0;
+			while(lenght<50)
+			{
+				c[lenght]=getch();
+				if (lenght > 0 && c[lenght]=='\b'){
+					lenght --;
+					putch(48);
+					}
+				else 
+					putch(c[lenght]);
+					if(c[lenght]=='\r')
+					break;
+					lenght++;
+			}
+				
+			
+    
+    
+			if (CheckChuoi(c,1,50)==-1) {
+	       		BaoLoi ("Dinh dang sai ");
+	       		gotoxy(cotMenuSua,dongMenuSua+2);cout<<"                                                   ";
+	       		continue;
+	   			}
+	   		ooo=0;
+		}
+		ooo=1;
+		
+		while (ooo==1){
+			gotoxy(cotMenuSua,dongMenuSua+3);
+			NhapChuoi (  "Nhap so day: ", text) ;day=CheckChuoi(text,2,10);
+			if (day==-1) {
+	       		BaoLoi ("So day phai <10");
+	       		gotoxy(cotMenuSua,dongMenuSua+3);cout<<"                                                   ";
+	       		continue;
+	   			}
+	   			
+	   		ooo=0;
+		}
+		ooo=1;
+		while (ooo==1){
+			gotoxy(cotMenuSua,dongMenuSua+4);
+			NhapChuoi (  "Nhap so dong: ", text) ;dong=CheckChuoi(text,2,50);
+			if (dong==-1) {
+	       BaoLoi ("So dong phai <50");
+	       gotoxy(cotMenuSua,dongMenuSua+4);cout<<"                                                   ";
+	       continue;
+	   			}
+	   		ooo=0;
+		}
+		
+		
+		gotoxy(cotMenuSua,dongMenuSua+5);
 		NhapChuoi (  "Chac chan sua thong tin may bay nay (nhap Y de dong y): ", yn) ;
 		if (strcmp(yn,"Y")==0||strcmp(yn,"y")==0){
 			strcpy (ds.nodes[i]->loaimb,c);
-			ds.nodes[i]->soday=a;
-			ds.nodes[i]->sodong=b;
+			ds.nodes[i]->soday=day;
+			ds.nodes[i]->sodong=dong;
 			BaoLoi("Sua thong tin may bay thanh cong"); 
 		   }
 	   
@@ -160,7 +232,10 @@ void XoaMb(listmb &ds, int i){
    if (ds.nodes[i]->luotbay>0) {
    	cout<<"May bay da co lich bay. Khong the xoa"; getch(); return ;
    }
-   char yn[5];
+   char yn[5];	
+   		gotoxy(cotMenuSua+7,dongMenuSua+3);
+		printf( "so hieu may bay : %s", ds.nodes[i]->sohieumb);cout<<"\n";
+		gotoxy (cotMenuSua,dongMenuSua+4);
    NhapChuoi (  "Ban co chac chan xoa so hieu may bay nay (nhap Y de dong y): ", yn) ;
    if (strcmp(yn,"Y")==0){
    
@@ -169,9 +244,10 @@ void XoaMb(listmb &ds, int i){
        ds.nodes[j-1]=ds.nodes[j];
        
      ds.n--;  
+     BaoLoi("Xoa thong tin may bay thanh cong");
 	}
 
-BaoLoi("Xoa thong tin may bay thanh cong");
+
 }
 int InsertOrderMB (listmb &ds, Maybay mb){
 	int j, k;

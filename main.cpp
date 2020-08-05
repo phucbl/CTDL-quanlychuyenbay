@@ -20,16 +20,18 @@ int main (){
   do
   {
     chon = MenuDong (thucdon,chona);
-    system ("cls");
+    //system ("cls");
     switch (chon ){
     case 1: {  	
 				if (NhapMB(dsmb, mb)==1) InsertOrderMB (dsmb,mb);
+				BaoLoi("Them may bay thanh cong.");
               	break;
             };
-    case 2: 	{LietKe(dsmb); 
+    case 2: 	{	system ("cls");
+					LietKe(dsmb); 
 		break;
 	}
-    case 3: { 	
+    case 3: { 	gotoxy(cotNhap,dongNhap);
 				NhapChuoi (  "Nhap so hieu may bay: ", sohieu) ;int c=1;
     			if (strlen(sohieu)<15){
 	   				char f[15]=" ";
