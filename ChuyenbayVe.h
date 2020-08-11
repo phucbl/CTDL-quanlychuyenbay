@@ -52,8 +52,8 @@ NODEPTRCB search_info(NODEPTRCB First, char x[16])
 NODEPTRCB search_info2(NODEPTRCB First)
 {
 	NODEPTRCB p;char sohieu[16];
-	p = First;
-	NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu) ;int c=1;
+	p = First;gotoxy(cotNhap,dongNhap);
+	NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu,14) ;int c=1;
 			 if (strcmp(sohieu,"0")==0) return NULL;
 	   if (CheckChuoi(sohieu,1,15)==-1) 
 	   {   
@@ -78,7 +78,8 @@ NODEPTRCB search_info2(NODEPTRCB First)
 					if (strcmp(p->cb.trangthai,"1")==0) strcpy(tt,"Con ve");
 					if (strcmp(p->cb.trangthai,"2")==0) strcpy(tt,"Het ve");
 					if (strcmp(p->cb.trangthai,"3")==0) strcpy(tt,"Hoan tat");
-				printf("\n %15s %30s %15s %25s %10s \n", p->cb.machbay, p->cb.noiden,p->cb.sohieumaybay, p->cb.timebay, tt);
+					gotoxy(cotNhap,dongNhap+1);printf("Ma CB          Noi den        So hieuu MB    Time     Trang thai");
+					gotoxy(cotNhap,dongNhap+2);printf("%15s %30s %15s", p->cb.machbay, p->cb.noiden,p->cb.sohieumaybay);OutputDateTime(p->cb.timebay);cout<<" "<<tt<<"\n";
 		
 	return(p);
 }}
@@ -91,7 +92,7 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	int i=1;char sh[30];char str[50];int d;DATETIME time;
 		
 		while (i==1){
-		 NhapChuoi (  "Nhap so hieu chuyen (=0 la ket thuc) : ", sh);
+		 NhapChuoi (  "Nhap so hieu chuyen (=0 la ket thuc) : ", sh,14);
 	   if (strcmp(sh,"0")==0) return 0;
 	   if (CheckChuoi(sh,1,15)==-1) 
 	   {   
@@ -115,7 +116,7 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	
 	i=1;
 	while (i==1){
-		NhapChuoi (  "Nhap noi den: ", str);
+		NhapChuoi (  "Nhap noi den: ", str,50);
 		if (strcmp(str,"0")==0) return 0;
 		if (CheckChuoi(str,1,30)==-1) 
 	   {   
@@ -126,7 +127,7 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	 }
 	 i=1;
 	 while (i==1){
-		NhapChuoi (  "Nhap so hieu may bay: ", sh);
+		NhapChuoi (  "Nhap so hieu may bay: ", sh,14);
 		if (strcmp(sh,"0")==0) return 0;
 		if (CheckChuoi(sh,1,15)==-1) 
 	   {   
@@ -263,7 +264,7 @@ void SuaCB(nodeCB &ds, ChuyenBay &cb, listmb ds1, NODEPTRCB p){
 	DATETIME time;
 	int i=1;char sh[30];char str[50];
 	while (i==1){
-		NhapChuoi (  "Nhap noi den: ", str);
+		NhapChuoi (  "Nhap noi den: ", str,50);
 		
 		if (CheckChuoi(str,1,30)==-1) 
 	   {   
@@ -274,7 +275,7 @@ void SuaCB(nodeCB &ds, ChuyenBay &cb, listmb ds1, NODEPTRCB p){
 	 }
 	 i=1;
 	 while (i==1){
-		NhapChuoi (  "Nhap so hieu may bay: ", sh);
+		NhapChuoi (  "Nhap so hieu may bay: ", sh,14);
 		
 		if (CheckChuoi(sh,1,15)==-1) 
 	   {   
@@ -330,7 +331,7 @@ void XoaCB(nodeCB &dscb,ChuyenBay cb,NODEPTRCB pp){
 }
 void HuyCB(nodeCB ds, ChuyenBay cb, listmb ds1, NODEPTRCB p){
 	char yn[5];
-	NhapChuoi (  "\nBan chac chan huy chuyen bay nay? ( nhap Y de dong y)", yn) ;
+	NhapChuoi (  "\nBan chac chan huy chuyen bay nay? ( nhap Y de dong y)", yn,1) ;
 	if (strcmp(yn,"Y")==0) 
 	strcpy (cb.trangthai,"0");
 	strcpy (cb.machbay,p->cb.machbay);
@@ -534,7 +535,7 @@ NODEPTRCB CheckVeChuyenBayKhac( nodeCB dscb, NODEPTRCB p, char cmnd[13]){
 }
 void TimChuyenBayDatePlace( ){
 	char noiden[30];DATETIME date;
-	NhapChuoi("Nhap noi den: ",noiden);
+	NhapChuoi("Nhap noi den: ",noiden,50);
 	ValidDate(date);
 	NODEPTRCB p;int count=0;
     p = First;

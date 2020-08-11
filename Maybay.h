@@ -35,7 +35,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 	int i=1;char sh[30];char l[100];
 	while (i==1){
 		gotoxy(cotNhap,dongNhap);
-	   NhapChuoi (  "Nhap so hieu may bay (=0 la ket thuc) : ", sh);
+	   NhapChuoi (  "Nhap so hieu may bay (=0 la ket thuc) : ", sh,14);
 	   if (strcmp(sh,"0")==0) return 0;
 	   if (CheckChuoi(sh,1,15)==-1) 
 	   {   
@@ -61,7 +61,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 	   	i=1;
 	while (i==1){
 		gotoxy(cotNhap,dongNhap+1);
-		 NhapChuoi (  "Nhap loai may bay: ",l);
+		 NhapChuoi (  "Nhap loai may bay: ",l,50);
 		if (CheckChuoi(l,1,50)==-1) {
 	       BaoLoi ("Dinh dang sai "); 
 	       continue;
@@ -72,7 +72,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 	while (i==1){  
 		
 		gotoxy(cotNhap,dongNhap+2);
-	    NhapChuoi (  "Nhap so day: ",sh);int b=CheckChuoi(sh,2,10);
+	    NhapChuoi (  "Nhap so day: ",sh,2);int b=CheckChuoi(sh,2,10);
 	    if (b==-1)
 		{
 	   		BaoLoi ("Nhap lai so day (<10)  ");
@@ -85,7 +85,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 	   	while (i==1){  
 		
 		gotoxy(cotNhap,dongNhap+3);
-	    NhapChuoi (  "Nhap so dong: ",sh);int b=CheckChuoi(sh,2,100);
+	    NhapChuoi (  "Nhap so dong: ",sh,2);int b=CheckChuoi(sh,2,100);
 	    if (b==-1)
 		{
 	   		BaoLoi ("Nhap lai so dong (<100)  ");
@@ -128,25 +128,7 @@ void SuaMb( listmb &ds, int i) {
 		int ooo =1;
 		while (ooo==1){
 			gotoxy(cotMenuSua,dongMenuSua+2);
-			printf(  "Nhap loai may bay: "); 
-			int lenght=0;
-			while(lenght<50)
-			{
-				c[lenght]=getch();
-				if (lenght > 0 && c[lenght]=='\b'){
-					lenght --;
-					putch(48);
-					}
-				else 
-					putch(c[lenght]);
-					if(c[lenght]=='\r')
-					break;
-					lenght++;
-			}
-				
-			
-    
-    
+			NhapChuoi("Nhap loai may bay: ",c,50);
 			if (CheckChuoi(c,1,50)==-1) {
 	       		BaoLoi ("Dinh dang sai ");
 	       		gotoxy(cotMenuSua,dongMenuSua+2);cout<<"                                                   ";
@@ -158,7 +140,7 @@ void SuaMb( listmb &ds, int i) {
 		
 		while (ooo==1){
 			gotoxy(cotMenuSua,dongMenuSua+3);
-			NhapChuoi (  "Nhap so day: ", text) ;day=CheckChuoi(text,2,10);
+			NhapChuoi (  "Nhap so day: ", text, 2) ;day=CheckChuoi(text,2,10);
 			if (day==-1) {
 	       		BaoLoi ("So day phai <10");
 	       		gotoxy(cotMenuSua,dongMenuSua+3);cout<<"                                                   ";
@@ -170,7 +152,7 @@ void SuaMb( listmb &ds, int i) {
 		ooo=1;
 		while (ooo==1){
 			gotoxy(cotMenuSua,dongMenuSua+4);
-			NhapChuoi (  "Nhap so dong: ", text) ;dong=CheckChuoi(text,2,50);
+			NhapChuoi (  "Nhap so dong: ", text,2) ;dong=CheckChuoi(text,2,50);
 			if (dong==-1) {
 	       BaoLoi ("So dong phai <50");
 	       gotoxy(cotMenuSua,dongMenuSua+4);cout<<"                                                   ";
@@ -181,7 +163,7 @@ void SuaMb( listmb &ds, int i) {
 		
 		
 		gotoxy(cotMenuSua,dongMenuSua+5);
-		NhapChuoi (  "Chac chan sua thong tin may bay nay (nhap Y de dong y): ", yn) ;
+		NhapChuoi (  "Chac chan sua thong tin may bay nay (nhap Y de dong y): ", yn,1) ;
 		if (strcmp(yn,"Y")==0||strcmp(yn,"y")==0){
 			strcpy (ds.nodes[i]->loaimb,c);
 			ds.nodes[i]->soday=day;
@@ -236,7 +218,7 @@ void XoaMb(listmb &ds, int i){
    		gotoxy(cotMenuSua+7,dongMenuSua+3);
 		printf( "so hieu may bay : %s", ds.nodes[i]->sohieumb);cout<<"\n";
 		gotoxy (cotMenuSua,dongMenuSua+4);
-   NhapChuoi (  "Ban co chac chan xoa so hieu may bay nay (nhap Y de dong y): ", yn) ;
+   NhapChuoi (  "Ban co chac chan xoa so hieu may bay nay (nhap Y de dong y): ", yn,1) ;
    if (strcmp(yn,"Y")==0){
    
    delete  ds.nodes[i];

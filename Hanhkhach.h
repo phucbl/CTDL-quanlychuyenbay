@@ -149,12 +149,8 @@ NODEPTRHK TimVaLayCMND (NODEPTRHK &root, char str[13])
 }
 void NhapHK (NODEPTRHK &root, char str[13]){
 	char ho[30];char ten[10];int phai;
-		printf("Nhap ho :");
-        cin >> ho;
-        
-        printf("Nhap ten :");
-        cin >> ten;
-        
+		NhapChuoi("Nhap ho :",ho,25);
+		NhapChuoi("Nhap ten :",ten,10);
         printf("Nhap phai :");
         cin >> phai;
         Insert_node(root,str,ho,ten,phai);soHanhKhach++; 

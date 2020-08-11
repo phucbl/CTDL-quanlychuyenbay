@@ -32,7 +32,7 @@ int main (){
 		break;
 	}
     case 3: { 	gotoxy(cotNhap,dongNhap);
-				NhapChuoi (  "Nhap so hieu may bay: ", sohieu) ;int c=1;
+				NhapChuoi (  "Nhap so hieu may bay: ", sohieu,15) ;int c=1;
     			if (strlen(sohieu)<15){
 	   				char f[15]=" ";
 	   				for (int i=0;i<13-strlen(sohieu);i++)  strcat(f," ");
@@ -162,7 +162,7 @@ int main (){
 				}
 				system("cls");cout<<"DAT VE CHUYEN BAY "<<p->cb.machbay<<"\n";
 				char strcmnd[13];NODEPTRHK ptemp;
-				NhapChuoi (  "Nhap cmnd: ", strcmnd); ptemp=TimVaLayCMND(tree,strcmnd);
+				NhapChuoi (  "Nhap cmnd: ", strcmnd,12); ptemp=TimVaLayCMND(tree,strcmnd);
 				if (ptemp==NULL) {
 					NhapHK(tree,strcmnd); strcpy(p->cb.dsve[k - 1].cmnd,strcmnd); 
 				} else
