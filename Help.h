@@ -93,6 +93,7 @@ void HighLight () {
 	SetColor(White);
 	SetBGColor(DarkGray);
 }
+
 void KhungMenu(){
 	SetColor(Yellow);
 	gotoxy (0,0);

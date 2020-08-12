@@ -24,8 +24,7 @@ int main (){
     switch (chon ){
     case 1: {  	
 				if (NhapMB(dsmb, mb)==1) InsertOrderMB (dsmb,mb);
-				BaoLoi("Them may bay thanh cong.");
-              	break;
+			   	break;
             };
     case 2: 	{	system ("cls");
 					LietKe(dsmb); 

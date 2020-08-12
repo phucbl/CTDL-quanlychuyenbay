@@ -93,16 +93,49 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 			continue;
 	   	}
 		mb.sodong=b;i=0;}
-		mb.luotbay=0;
+		mb.luotbay=0;BaoLoi("Them may bay thanh cong.");
 	    return 1;
 	
 	}
 void LietKe (listmb ds) {
- printf ("                     DANH SACH MAY BAY \n");
- printf ("   So hieu              Loai            So day   So Dong     Luot Bay\n");
- for (int i =0 ; i < ds.n ; i++)
-  printf ("%15s %15s \t%-5d\t %-5d %5d \n", ds.nodes[i]->sohieumb, 
-     ds.nodes[i]->loaimb, ds.nodes[i]->soday, ds.nodes[i]->sodong,ds.nodes[i]->luotbay);
+	SetColor(LightCyan);
+		gotoxy (50,1);
+		printf ("DANH SACH MAY BAY \n");
+		gotoxy (1,3);
+		printf ("%15s%50s %10s %10s %10s\n","So hieu","Loai may bay","So day","So dong","Luot Bay");
+	SetColor(Yellow);
+		gotoxy (0,0);
+		cout << char(201) << setw(110) << setfill(char(205)) << char(205) << char (187);
+		gotoxy (0,1);cout << char(186);gotoxy (111,1);cout<<char(186);
+		gotoxy (0,3);cout << char(186);gotoxy (111,3);cout<<char(186);
+		gotoxy(0,2);
+		cout << char(204) << setw(17) << setfill(char(205)) <<char(209)<< setw(51) << setfill(char(205)) <<char(209) 
+		<< setw(11) << setfill(char(205)) <<char(209)<< setw(10) << setfill(char(205)) <<char(209) << setw(22) << setfill(char(205)) << char (185);
+		gotoxy(0,4);	
+		cout << char(204) << setw(17) << setfill(char(205)) <<char(216)<< setw(51) << setfill(char(205)) <<char(216) 
+		<< setw(11) << setfill(char(205)) <<char(216)<< setw(10) << setfill(char(205)) <<char(216) << setw(22) << setfill(char(205)) << char (185);
+		
+		gotoxy (17,3);cout<<char(179);
+		gotoxy (68,3);cout<<char(179);
+		gotoxy (79,3);cout<<char(179);
+		gotoxy (89,3);cout<<char(179);
+	
+	Normal();	
+ for (int i =0 ; i < ds.n ; i++){
+ 	gotoxy (1,i+5);
+ 	SetColor(White);printf ("%15s %50s \t%-5d\t %-5d %5d", ds.nodes[i]->sohieumb,
+    ds.nodes[i]->loaimb, ds.nodes[i]->soday, ds.nodes[i]->sodong,ds.nodes[i]->luotbay);
+	SetColor(Yellow);
+	gotoxy (0,i+5);cout << char(186);
+	gotoxy (17,i+5);cout<<char(179);
+	gotoxy (68,i+5);cout<<char(179);
+	gotoxy (79,i+5);cout<<char(179);
+	gotoxy (89,i+5);cout<<char(179);    
+    gotoxy (111,i+5);cout<<char(186)<<"\n";
+ }
+
+  cout << char(200) << setw(17) << setfill(char(205)) <<char(207)<< setw(51) << setfill(char(205)) <<char(207) 
+	<< setw(11) << setfill(char(205)) <<char(207)<< setw(10) << setfill(char(205)) <<char(207) << setw(22) << setfill(char(205)) << char (188);
  getch();
 }
 void ThongKeLuotBay (listmb ds) {
