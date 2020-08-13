@@ -4,7 +4,7 @@
 #include <conio.h>
 struct Maybay {
   char sohieumb[15];
-  char loaimb [50];
+  char loaimb [40];
   int soday;
   int sodong;
   int luotbay;
@@ -102,48 +102,83 @@ void LietKe (listmb ds) {
 		gotoxy (50,1);
 		printf ("DANH SACH MAY BAY \n");
 		gotoxy (1,3);
-		printf ("%15s%50s %10s %10s %10s\n","So hieu","Loai may bay","So day","So dong","Luot Bay");
-	SetColor(Yellow);
-		gotoxy (0,0);
+		printf ("%15s%30s %35s %20s\n","So hieu","Loai may bay","So day","So dong");
+		SetColor(Yellow);//ve khung
+		gotoxy (0,0); 
 		cout << char(201) << setw(110) << setfill(char(205)) << char(205) << char (187);
+		
 		gotoxy (0,1);cout << char(186);gotoxy (111,1);cout<<char(186);
-		gotoxy (0,3);cout << char(186);gotoxy (111,3);cout<<char(186);
-		gotoxy(0,2);
+		
+		gotoxy (0,2);
 		cout << char(204) << setw(17) << setfill(char(205)) <<char(209)<< setw(51) << setfill(char(205)) <<char(209) 
-		<< setw(11) << setfill(char(205)) <<char(209)<< setw(10) << setfill(char(205)) <<char(209) << setw(22) << setfill(char(205)) << char (185);
+		<< setw(21) << setfill(char(205)) <<char(209)<< setw(22) << setfill(char(205)) << char (185);
+		
+		gotoxy (0,3);cout << char(186);gotoxy (111,3);cout<<char(186);
+		
 		gotoxy(0,4);	
 		cout << char(204) << setw(17) << setfill(char(205)) <<char(216)<< setw(51) << setfill(char(205)) <<char(216) 
-		<< setw(11) << setfill(char(205)) <<char(216)<< setw(10) << setfill(char(205)) <<char(216) << setw(22) << setfill(char(205)) << char (185);
+		<< setw(21) << setfill(char(205)) <<char(216)<< setw(22) << setfill(char(205)) << char (185);
 		
-		gotoxy (17,3);cout<<char(179);
+		gotoxy (17,3);cout<<char(179); // 3 canh nho o giua
 		gotoxy (68,3);cout<<char(179);
-		gotoxy (79,3);cout<<char(179);
 		gotoxy (89,3);cout<<char(179);
 	
 	Normal();	
  for (int i =0 ; i < ds.n ; i++){
  	gotoxy (1,i+5);
- 	SetColor(White);printf ("%15s %50s \t%-5d\t %-5d %5d", ds.nodes[i]->sohieumb,
-    ds.nodes[i]->loaimb, ds.nodes[i]->soday, ds.nodes[i]->sodong,ds.nodes[i]->luotbay);
+ 	SetColor(White);printf ("%15s %50s \t%8d %19d", ds.nodes[i]->sohieumb,
+    ds.nodes[i]->loaimb, ds.nodes[i]->soday, ds.nodes[i]->sodong);
 	SetColor(Yellow);
-	gotoxy (0,i+5);cout << char(186);
-	gotoxy (17,i+5);cout<<char(179);
+	gotoxy (0,i+5);cout << char(186); //  canh ngoai cung 2 ben
+	gotoxy (17,i+5);cout<<char(179); //3 canh nho o giua
 	gotoxy (68,i+5);cout<<char(179);
-	gotoxy (79,i+5);cout<<char(179);
 	gotoxy (89,i+5);cout<<char(179);    
     gotoxy (111,i+5);cout<<char(186)<<"\n";
  }
 
-  cout << char(200) << setw(17) << setfill(char(205)) <<char(207)<< setw(51) << setfill(char(205)) <<char(207) 
-	<< setw(11) << setfill(char(205)) <<char(207)<< setw(10) << setfill(char(205)) <<char(207) << setw(22) << setfill(char(205)) << char (188);
+  cout << char(200) << setw(17) << setfill(char(205)) <<char(207)<< setw(51) << setfill(char(205)) <<char(207) // canh duoi cung
+	<< setw(21) << setfill(char(205)) <<char(207) << setw(22) << setfill(char(205)) << char (188);
  getch();
 }
 void ThongKeLuotBay (listmb ds) {
- printf ("                     DANH SACH MAY BAY \n");
- printf ("   So hieu                Loai              Luot Bay\n");
- for (int i =0 ; i < ds.n ; i++)
-  printf ("%15s %15s %10d \n", ds.nodes[i]->sohieumb, 
+	SetColor(LightCyan);
+ 	gotoxy (50,1);
+	printf ("THONG KE LUOT BAY");
+	gotoxy (1,3);
+ 	printf ("%15s %30s %45s","So hieu","Loai","Luot Bay");
+ 	SetColor(Yellow);//ve khung
+		gotoxy (0,0); 
+		cout << char(201) << setw(110) << setfill(char(205)) << char(205) << char (187);
+		
+		gotoxy (0,1);cout << char(186);gotoxy (111,1);cout<<char(186);
+		
+		gotoxy (0,2);
+		cout << char(204) << setw(17) << setfill(char(205)) <<char(209)<< setw(51) << setfill(char(205)) <<char(209) 
+		<< setw(43) << setfill(char(205)) << char (185);
+		
+		gotoxy (0,3);cout << char(186);gotoxy (111,3);cout<<char(186);
+		
+		gotoxy(0,4);	
+		cout << char(204) << setw(17) << setfill(char(205)) <<char(216)<< setw(51) << setfill(char(205)) <<char(216) 
+		<< setw(43) << setfill(char(205)) << char (185);
+		
+		gotoxy (17,3);cout<<char(179); // 3 canh nho o giua
+		gotoxy (68,3);cout<<char(179);
+		Normal();
+ 	
+ for (int i =0 ; i < ds.n ; i++){
+ 	gotoxy (1,i+5);
+ 	SetColor(White);
+  	printf ("%15s %30s %45d \n", ds.nodes[i]->sohieumb, 
      ds.nodes[i]->loaimb, ds.nodes[i]->luotbay);
+ 	SetColor(Yellow);
+	gotoxy (0,i+5);cout << char(186); //  canh ngoai cung 2 ben
+	gotoxy (17,i+5);cout<<char(179); //3 canh nho o giua
+	gotoxy (68,i+5);cout<<char(179);
+	gotoxy (111,i+5);cout<<char(186)<<"\n";
+ }
+ 	cout << char(200) << setw(17) << setfill(char(205)) <<char(207)<< setw(51) << setfill(char(205)) <<char(207) // canh duoi cung
+	<< setw(43) << setfill(char(205)) << char (188);
  getch();
 }
 

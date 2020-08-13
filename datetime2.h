@@ -110,7 +110,7 @@ void ValidDateTime(DATETIME &dt)
 		bool flagSize = true;
 		while(flagSize)
 		{
-				cout << endl << "Nhap datetime: ";
+				cout << "Nhap datetime: ";
 				fflush(stdin);
 				getline(std::cin, strDateTime); cout << endl;
 				if (strDateTime.length() == 16)

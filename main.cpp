@@ -62,13 +62,15 @@ int main (){
 	       
 		  strcpy(sohieu,"");break;
 	    };
-	case 4: { Maybay mblb;
+	case 4: { 	
+				Maybay mblb;
 				dsmbluotbay.n=0;
 				for (int i = 0; i<dsmb.n; i++)
 					{	
 					mblb=*dsmb.nodes[i];
 					InsertOrderLuotBay(dsmbluotbay,mblb);
 					}
+					system ("cls");
 					ThongKeLuotBay(dsmbluotbay);
 		  break;
 	    };    
@@ -115,13 +117,16 @@ int main (){
 			}
 	case 10: {	
 				p = search_info2(First);
-				if (p!=NULL) 
-					if (strcmp(p->cb.trangthai,"3")==0){
+				if (p!=NULL) {
+				if (strcmp(p->cb.trangthai,"3")==0){
 						cout<<"Chuyen bay da hoan tat. Khong the huy chuyen bay nay!!!"; getch(); break;
 					}
 				HuyCB(dscb,cb,dsmb,p);
-				break;
+				
+					
 				}
+				break;	
+			}
 
 	case 11: { 
 		SaveFileCB(First,filenameCB);
