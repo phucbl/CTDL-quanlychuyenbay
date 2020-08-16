@@ -133,8 +133,23 @@ int main (){
 		SaveHanhKhach(tree);
 		break;
 	}
-	case 13: {	
-				p = search_info2(First);
+	case 13: {	char sohieu[16];
+				p = First;gotoxy(cotNhap,dongNhap);
+				NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu,14) ;int c=1;
+						 if (strcmp(sohieu,"0")==0) return NULL;
+				   if (CheckChuoi(sohieu,1,15)==-1) 
+				   {   
+				   
+				       BaoLoi ("Dinh dang sai "); 
+				       return NULL;
+				   }
+					if (strlen(sohieu)<15){
+				   	char f[15]=" ";
+				   	for (int i=0;i<13-strlen(sohieu);i++)  strcat(f," ");
+					   strcat(f,sohieu);
+					   strcpy(sohieu,f);
+				   }
+				p = search_info(First,sohieu);
 				if (p!=NULL) 
 				{
 					
@@ -192,8 +207,24 @@ int main (){
 			
 		break;
 	}
-	case 14: { 
-				p = search_info2(First);
+	case 14: { 	
+				char sohieu[16];
+				p = First;gotoxy(cotNhap,dongNhap);
+				NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu,14) ;int c=1;
+						 if (strcmp(sohieu,"0")==0) return NULL;
+				   if (CheckChuoi(sohieu,1,15)==-1) 
+				   {   
+				   
+				       BaoLoi ("Dinh dang sai "); 
+				       return NULL;
+				   }
+					if (strlen(sohieu)<15){
+				   	char f[15]=" ";
+				   	for (int i=0;i<13-strlen(sohieu);i++)  strcat(f," ");
+					   strcat(f,sohieu);
+					   strcpy(sohieu,f);
+				   }
+				p = search_info(First,sohieu);
 				if (p!=NULL) 
 				{
 				

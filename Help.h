@@ -45,6 +45,8 @@ const int dongMenuSua = 4;
 const int cotMenuSua = 37;
 const int cotNhap = 37;
 const int dongNhap = 1;
+const int cotVe = 5;
+const int dongVe = 3;
 
 int currposVe = 1;
 int currposVeT = 1;

@@ -396,8 +396,8 @@ void BoxVe(int x, int y, char  text[5], int trth)
 	
 }
 void MenuVe(ChuyenBay cb)
-{
-	int x = 20; int y = 8;
+{	
+	int x = cotVe; int y = dongVe;
 	int n = cb.socot*cb.sodong;
 	for (int i = 1; i <= n; i++)
 	{	
@@ -409,7 +409,7 @@ void MenuVe(ChuyenBay cb)
 		if (i % cb.socot == 0)
 		{
 			y += 3;
-			x = 20;
+			x = cotVe;
 		}
 
 	}
@@ -424,7 +424,7 @@ void   EditMenu(int index, int preColor, int cot, int dong)
 	char text[5]="";int a=currposVeT%cot;if (a==0) a=cot;int c=((currposVeT-1)/cot)+1;
 	strcat(text,mangchucai[a]);strcat(text,mangchuso[c/10]);strcat(text,mangchuso[c%10]);
 	SetBGColor(Red);if (preColor == Blue) SetBGColor(Blue);  else SetBGColor(Black);
-	gotoxy(13 + (column + 1) * 5 +1, (row + 1) * 3 + 5);
+	gotoxy((column + 1) * 5 -1, (row + 1) * 3 );
 	cout << setw(3) << setfill('0') << text;
 	Normal();strcpy(text,"");
 	
@@ -433,7 +433,7 @@ void   EditMenu(int index, int preColor, int cot, int dong)
 	a=current%cot;if (a==0) a=cot; c=((current-1)/cot)+1;
 		strcat(text,mangchucai[a]);strcat(text,mangchuso[c/10]);strcat(text,mangchuso[c%10]);
 	SetBGColor(Red);
-	gotoxy(13 + (column + 1) * 5 +1, (row + 1) * 3 + 5);
+	gotoxy((column + 1) * 5 -1, (row + 1) * 3 );
 	cout << setw(3) << setfill('0') << text;
 	
 	Normal();
@@ -442,9 +442,21 @@ void   EditMenu(int index, int preColor, int cot, int dong)
 
 
 int ChonVe(NODEPTRCB p)
-{	ChuyenBay cb;
+{	system ("cls");
+	ChuyenBay cb;
 	cb=p->cb;
-	gotoxy(5, 5); cout << " CHON GHE MUON DAT. SO VE DA BAN: "<<cb.sovedaban;
+	gotoxy(cb.socot*6, 4); cout << "DAT VE CHUYEN BAY "<<cb.machbay;
+	gotoxy(cb.socot*6, 5); cout << "CHON GHE MUON DAT. SO VE DA BAN: "<<cb.sovedaban<<"/"<<cb.socot*cb.sodong;
+	gotoxy(cb.socot*6, 6); cout << "Noi den: "<<cb.noiden;
+	gotoxy(cb.socot*6, 7); cout << "Time: ";OutputDateTime(cb.timebay);
+	for (int i=1; i<=cb.sodong*3+dongVe-2;i++){
+		SetColor(Yellow);
+		gotoxy (0,i);cout<<char(186);
+		gotoxy (111,i);cout<<char(186);
+		
+	}
+	gotoxy(0,cb.sodong*3+dongVe-1);cout << char(200) << setw(111) << setfill(char(205))  << char (188);
+	Normal();
 	//reset locate
 	currposVe = 1;
 	currposVeT = 1;
@@ -455,9 +467,11 @@ int ChonVe(NODEPTRCB p)
 	int d=cb.sodong;
 	int c=cb.socot;
 	int sove=d*c;	
+	SetColor(Yellow);
+	gotoxy(0,0);cout << char(201) << setw(111) << setfill(char(205))  << char (187);
 	SetBGColor(Red);
-	gotoxy(13 + (0 + 1) * 6, (0 + 1) * 3 + 5);
-	cout << setw(3) << "A01"; Normal();
+	gotoxy(cotVe-1, dongVe);
+	cout <<"A01"; Normal();
 	
 	while (PASS)
 	{
