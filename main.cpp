@@ -31,7 +31,7 @@ int main (){
 		break;
 	}
     case 3: { 	gotoxy(cotNhap,dongNhap);
-				NhapChuoi (  "Nhap so hieu may bay: ", sohieu,15) ;int c=1;
+				NhapChuoi (  "Nhap so hieu may bay: ", sohieu,14) ;int c=1;
     			if (strlen(sohieu)<15){
 	   				char f[15]=" ";
 	   				for (int i=0;i<13-strlen(sohieu);i++)  strcat(f," ");
@@ -136,7 +136,7 @@ int main (){
 	case 13: {	char sohieu[16];
 				p = First;gotoxy(cotNhap,dongNhap);
 				NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu,14) ;int c=1;
-						 if (strcmp(sohieu,"0")==0) return NULL;
+						 if (strcmp(sohieu,"0")==0) break;
 				   if (CheckChuoi(sohieu,1,15)==-1) 
 				   {   
 				   
@@ -203,6 +203,9 @@ int main (){
 				if (p->cb.socot*p->cb.sodong== p->cb.sovedaban) strcpy(p->cb.trangthai,"2");
 				BaoLoi(" DAT THANH CONG ");
 				p=NULL;
+				}
+				else {
+					BaoLoi("Khong co so hieu chuyen bay nay!!!");
 				}
 			
 		break;

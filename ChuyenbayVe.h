@@ -142,7 +142,7 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	 i=1;	 
 	 while (i==1){
 		gotoxy(cotNhap,dongNhap+3);
-		NhapChuoi (  "Nhap noi den: ", str,50);
+		NhapChuoi (  "Nhap noi den: ", str,29);
 		if (strcmp(str,"0")==0) return 0;
 		if (CheckChuoi(str,1,29)==-1)
 	   {   
@@ -305,7 +305,7 @@ void SuaCB(nodeCB &ds, ChuyenBay &cb, listmb ds1, NODEPTRCB p){
 	DATETIME time;
 	int i=1;char sh[30];char str[50];
 	while (i==1){
-		NhapChuoi (  "Nhap noi den: ", str,50);
+		NhapChuoi (  "Nhap noi den: ", str,29);
 		
 		if (CheckChuoi(str,1,30)==-1) 
 	   {   
@@ -590,19 +590,32 @@ NODEPTRCB CheckVeChuyenBayKhac( nodeCB dscb, NODEPTRCB p, char cmnd[13]){
 }
 void TimChuyenBayDatePlace( ){
 	char noiden[30];DATETIME date;
-	NhapChuoi("Nhap noi den: ",noiden,50);
+	gotoxy(cotNhap,dongNhap);
+	NhapChuoi("Nhap noi den: ",noiden,29);
+	gotoxy(cotNhap,dongNhap+1);
 	ValidDate(date);
-	NODEPTRCB p;int count=0;
+	NODEPTRCB p; int count=0;
     p = First;
     while (p!=NULL){
     	if (strcmp(p->cb.noiden,noiden)==0 && IsSame2Date(date,p->cb.timebay)==1){
     		int sovecon = (p->cb.sodong*p->cb.socot) - p->cb.sovedaban;
-    		cout<<p->cb.machbay<<"\t"<<sovecon<<"\t";OutputDateTime(p->cb.timebay);cout<<"\n";
+    		gotoxy(cotNhap,dongNhap+2);
+    		cout<<"Thong tin: Ma CB     So ve trong            Time";
+    		gotoxy(cotNhap,dongNhap+3+count);
+    		cout<<"\t"<<p->cb.machbay<<"\t\t"<<sovecon<<"\t\t";OutputDateTime(p->cb.timebay);
     		count++;
+    		if (count == 10) {
+    			gotoxy(cotNhap+5,dongNhap+3+count);
+    			cout<<" Xem them ";
+    			getch();
+    			break;
+			}
 		}
 		p=p->next;
 	}
-	if (count==0) cout<<"Khong co chuyen bay phu hop!";
+	if (count==0) {
+		gotoxy(cotNhap,dongNhap+2);cout<<"Khong co chuyen bay phu hop!";
+	}
 	getch();
     
 }

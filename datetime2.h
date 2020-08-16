@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string strDateTime;
+char strDateTime[20];
 int nDayOfMonth[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 
 struct DateTime
@@ -108,17 +108,23 @@ void ValidDateTime(DATETIME &dt)
 		//OutputDateTime(dtNow);
 		
 		bool flagSize = true;
+		int xx=wherex();int yy=wherey();
 		while(flagSize)
 		{
-				cout << "Nhap datetime: ";
-				fflush(stdin);
-				getline(std::cin, strDateTime); cout << endl;
-				if (strDateTime.length() == 16)
+				
+				gotoxy(xx,yy);
+				NhapChuoi("Nhap datetime: ",strDateTime,16);
+				
+				if (strlen(strDateTime) == 16)
 					flagSize = false;
-				else
+				else{
+					gotoxy(xx,yy+1);
 					cout << "Nhap thieu hoac du ky tu";
+					continue;
+				}
 		}
-		
+		gotoxy(xx,yy+1);
+		cout << "                              ";
 		char day[] = {strDateTime[0], strDateTime[1]};
 		char month[] = {strDateTime[3], strDateTime[4]};
 		char year[] = {strDateTime[6], strDateTime[7], strDateTime[8], strDateTime[9]};
@@ -223,17 +229,26 @@ void ValidDate(DATETIME &dt)
 		//OutputDateTime(dtNow);
 		
 		bool flagSize = true;
+		int xx=wherex();int yy=wherey();
 		while(flagSize)
-		{
-				cout << endl << "Nhap datetime: ";
-				fflush(stdin);
-				getline(std::cin, strDateTime); cout << endl;
-				if (strDateTime.length() == 10)
+		{		
+				
+				gotoxy(xx,yy);
+				NhapChuoi("Nhap datetime: ",strDateTime,10);
+				
+				if (strlen(strDateTime) == 10)
 					flagSize = false;
-				else
+				else{
+					gotoxy(xx,yy+1);
 					cout << "Nhap thieu hoac du ky tu";
+					gotoxy(xx,yy);
+					cout << "                              ";
+					continue;
+				}
+					
 		}
-		
+		gotoxy(xx,yy+1);
+		cout << "                              ";
 		char day[] = {strDateTime[0], strDateTime[1]};
 		char month[] = {strDateTime[3], strDateTime[4]};
 		char year[] = {strDateTime[6], strDateTime[7], strDateTime[8], strDateTime[9]};

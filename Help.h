@@ -252,13 +252,62 @@ void BaoLoi (char *s){
 }*/
 		
 
-void NhapChuoi (char *tieude, char *S, int max) {
+/*void NhapChuoi (char *tieude, char *S, int max) {
 	cout << tieude ;
+	int lenght=0;
+			while(lenght<max)
+			{	
+				
+				int c=getch();if (c==224||c==42||c==43||c==45) {c=getch();continue;} 
+				if ((c>=65&&c<=90)||(c<=122&&c>=97)||c==32||c==47||c==58||c==8||c==13||(c>=48&&c<=57)){
+					S[lenght]= char (c);
+				}
+				S[lenght]=getch();
+				if (lenght ==0 && (S[lenght]=='\b' ||S[lenght]=='\r' )) { S[lenght]==char (0);continue;}
+				if (lenght >0 && S[lenght]=='\b'){
+					S[lenght]=char(0);
+					S[lenght-1]=char(0);
+					lenght=lenght-2;
+					putch(8);
+					cout<<" ";
+					putch(8);
+					}
+				else 
+					putch(S[lenght]);
+					if(S[lenght]=='\r'){
+						S[lenght]=char(0);break;
+					}
+					lenght++;
+				while (lenght==max) {
+					char wait[2];
+					
+					wait[0]=getch();
+					if (wait[0]=='\b')
+					{
+						S[lenght-1]=char(0);
+						lenght--;
+						putch(8);
+						cout<<" ";
+						putch(8);
+					}
+					if (wait[0]=='\r') break;
+					
+					continue;
+				}
+			}
+			
+			
+}*/
+void NhapChuoi (char *tieude, char *S, int max) {
+	cout << tieude ;max--;
 	int lenght=0;
 			while(lenght<=max)
 			{	
 				
-				S[lenght]=getch();
+				int c=getch();if (c==224||c==42||c==43||c==45) {c=getch();continue;} 
+				if ((c>=65&&c<=90)||(c<=122&&c>=97)||c==32||c==47||c==58||c==8||c==13||(c>=48&&c<=57)){
+					S[lenght]= char (c);
+				}
 				if (lenght ==0 && (S[lenght]=='\b' ||S[lenght]=='\r' )) { S[lenght]==char (0);continue;}
 				if (lenght >0 && S[lenght]=='\b'){
 					S[lenght]=char(0);
