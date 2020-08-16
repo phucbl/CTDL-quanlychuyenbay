@@ -5,7 +5,7 @@
 #include <dos.h>
 #include <string.h>
 #include <windows.h>
-#include <mylib.h>
+#include "mylib.h"
 #include <iomanip>
 
 
