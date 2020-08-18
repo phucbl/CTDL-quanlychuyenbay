@@ -1,4 +1,3 @@
-
 #pragma once
 #include "Maybay.h"
 #include "ChuyenbayVe.h"
@@ -8,8 +7,8 @@ int main (){
   system ("cls"); Normal();
   
 	
-  int chon,chon2;  listmb dsmb,dsmbluotbay; dsmb.n=0; char sohieu[16];
-  Maybay mb; ChuyenBay cb; nodeCB dscb;int chona=1;int chonb=1;
+  int chon,chon2;  listmb dsmb; dsmb.n=0; char sohieu[16];
+  Maybay mb; ChuyenBay cb; nodeCB dscb;int chona=1,chonb=1;
   char tempCMND[13];
   initialize(First);
   InitializeTree(tree);
@@ -20,7 +19,6 @@ int main (){
   do
   {
     chon = MenuDong (thucdon,chona);
-    //system ("cls");
     switch (chon ){
     case 1: {  	
 				if (NhapMB(dsmb, mb)==1) InsertOrderMB (dsmb,mb);
@@ -31,15 +29,11 @@ int main (){
 		break;
 	}
     case 3: { 	gotoxy(cotNhap,dongNhap);
-				NhapChuoi (  "Nhap so hieu may bay: ", sohieu,14) ;int c=1;
-    			if (strlen(sohieu)<15){
-	   				char f[15]=" ";
-	   				for (int i=0;i<13-strlen(sohieu);i++)  strcat(f," ");
-					strcat(f,sohieu);
-					strcpy(sohieu,f);
-				   }
-    			int d=Search(dsmb,sohieu);
+				NhapChuoi (  "Nhap so hieu may bay: ", sohieu,14) ;				
+    			ThemCach(sohieu);
+    			int d=Search(dsmb,sohieu);    			
 				if (d>=0){
+					int c=1;
     				while (c==1){
 				      	chon2 = MenuDong2 (thucdon2);
 				      	switch (chon2){
@@ -58,20 +52,12 @@ int main (){
 							  }
 						  }
 					  } 
-				} else BaoLoi(" Khong co so hieu may bay nay!!! ");
+				} else BaoLoi("Khong co so hieu may bay nay!!! ");
 	       
 		  strcpy(sohieu,"");break;
 	    };
 	case 4: { 	
-				Maybay mblb;
-				dsmbluotbay.n=0;
-				for (int i = 0; i<dsmb.n; i++)
-					{	
-					mblb=*dsmb.nodes[i];
-					InsertOrderLuotBay(dsmbluotbay,mblb);
-					}
-					system ("cls");
-					ThongKeLuotBay(dsmbluotbay);
+				ThongKeLuotBay(dsmb);
 		  break;
 	    };    
 	
@@ -81,7 +67,6 @@ int main (){
 		}
 	case 8 : {
 		traverse(First);
-		getche();
 		break;
 	}
 	case 9 :{ 
@@ -103,12 +88,17 @@ int main (){
 				      				  c=0;
 								break;
 							  }
-				      		case 3: { 	printf( " So hieu chuyen bay : %s", p->cb.machbay);cout<<"\n";
-				      					if (p->cb.sovedaban>0) {
+				      		case 3: { 	if (p->cb.sovedaban>0) {
 				      						cout<<"Da ban ve. Khong the xoa chuyen bay nay!!!"; getch(); c=0; break;
 										  }
+										gotoxy(cotNhap,dongNhap+6);
+										cout<<"Ban chac chan xoa chuyen bay nay?";
+										int chonYN = MenuYN(menuYN,30); //30 la do dai cua chuoi cout tren
+										if (chonYN==0){
 							  			XoaCB(dscb,cb,p); 
 				      					c=0;
+										}
+										c=0;
 								break;
 							  }
 						  }
@@ -179,24 +169,39 @@ int main (){
 					system("cls");
 					break;
 				}
-				system("cls");cout<<"DAT VE CHUYEN BAY "<<p->cb.machbay<<"\n";
+				//system("cls");
+				gotoxy(p->cb.socot*6, 10); cout<<"NHAP THONG TIN DAT VE";
 				char strcmnd[13];NODEPTRHK ptemp;
+				gotoxy(p->cb.socot*6, 11);
 				NhapChuoi (  "Nhap cmnd: ", strcmnd,12); ptemp=TimVaLayCMND(tree,strcmnd);
 				if (ptemp==NULL) {
-					NhapHK(tree,strcmnd); strcpy(p->cb.dsve[k - 1].cmnd,strcmnd); 
+					NhapHK(tree,strcmnd,p->cb.socot); strcpy(p->cb.dsve[k - 1].cmnd,strcmnd); 
 				} else
 				{	
-				cout<<"Da co thong tin  \nCMND: "<<ptemp->cmnd;
-				cout<<"\nHo :"<<ptemp->ho<<"\nTen: "<<ptemp->ten<<"\nPhai: "<<ptemp->phai<<"\n";
+				gotoxy(p->cb.socot*6, 12);
+				cout<<"Da co thong tin";
+				gotoxy(p->cb.socot*6, 13);
+				cout<<"CMND: "<<ptemp->cmnd;
+				gotoxy(p->cb.socot*6, 14);
+				cout<<"Ho :"<<ptemp->ho;
+				gotoxy(p->cb.socot*6, 15);
+				cout<<"Ten: "<<ptemp->ten;
+				gotoxy(p->cb.socot*6, 16);
+				cout<<"Phai: "<<menuPhai[ptemp->phai];
 				NODEPTRCB q;
 				q=CheckVeChuyenBayKhac(dscb,p,strcmnd);
 				if (q!=NULL) {
+					
+					gotoxy(p->cb.socot*6, 18);
 					cout<<"CMND nay da dat ve tren chuyen bay "<<q->cb.machbay<<" vao luc ";
 					OutputDateTime(q->cb.timebay);cout<< ".Khong the dat ve nay!!!";getch();break;
 				} 
 				}
-				char yn[5];
-				cout<<"Xac nhan thong tin va dat ve (nhap y de dong y)";cin>>yn;if (strcmp(yn,"y")!=0) break; 
+				
+				gotoxy(p->cb.socot*6, 18);
+				cout<<"Xac nhan thong tin va dat ve";
+				int chonYN = MenuYN(menuYN,28); //28 la do dai cua chuoi cout "Xac nhan thong tin va dat ve"
+				if (chonYN!=0) break;
 				strcpy(p->cb.dsve[k - 1].cmnd,ptemp->cmnd);
 				p->cb.dsve[k - 1].trth = 1;
 				p->cb.sovedaban++;
@@ -259,7 +264,7 @@ int main (){
 					system("cls");
 					break;
 				}
-				system("cls");
+				//system("cls");
 				/*if (strcmp(p->cb.dsve[k - 1].cmnd,"")==0) {bool yn;
 				cout<<"Xac nhan thong tin va huy ve ( nhap 1 de dong y)";cin>>yn;if (yn!=1) break;
 				p->cb.dsve[k - 1].trth = 0;
@@ -268,12 +273,23 @@ int main (){
 				BaoLoi(" HUY VE THANH CONG ");	break;
 				}*/
 				NODEPTRHK ptemp;
-				ptemp=TimVaLayCMND(tree,p->cb.dsve[k - 1].cmnd);cout<<"Huy ve tren chuyen bay "<<p->cb.machbay<<"\n";
-				cout<<"Thong tin  \nCMND: "<<ptemp->cmnd;
-				cout<<"\nHo :"<<ptemp->ho<<"\nTen: "<<ptemp->ten<<"\nPhai: "<<ptemp->phai<<"\n";
-				strcpy(p->cb.dsve[k - 1].cmnd,ptemp->cmnd);
-				char yn[5];
-				cout<<"Xac nhan thong tin va huy ve (nhap y de dong y)";cin>>yn;if (strcmp(yn,"y")!=0) break;
+				ptemp=TimVaLayCMND(tree,p->cb.dsve[k - 1].cmnd);
+				gotoxy(p->cb.socot*6, 10);
+				cout<<"Huy ve tren chuyen bay "<<p->cb.machbay;
+				gotoxy(p->cb.socot*6, 11);
+				cout<<"Thong tin";
+				gotoxy(p->cb.socot*6, 12);
+				cout<<"CMND: "<<ptemp->cmnd;
+				gotoxy(p->cb.socot*6, 13);
+				cout<<"Ho :"<<ptemp->ho;
+				gotoxy(p->cb.socot*6, 14);
+				cout<<"Ten: "<<ptemp->ten;
+				gotoxy(p->cb.socot*6, 15);
+				cout<<"Phai: "<<menuPhai[ptemp->phai];
+				gotoxy(p->cb.socot*6, 16);
+				cout<<"Ban chac chan huy ve?";
+				int chonYN = MenuYN(menuYN,21);
+				if (chonYN!=0) break;
 				strcpy(p->cb.dsve[k - 1].cmnd,"");
 				p->cb.dsve[k - 1].trth = 0;
 				p->cb.sovedaban--;
@@ -288,6 +304,12 @@ int main (){
 	case 15: { TimChuyenBayDatePlace();
 		break;
 	}
+	case so_item: SaveFileMB(dsmb,filenameMB);
+				SaveFileCB(First,filenameCB);
+			SaveHanhKhach(tree);
+			BaoLoi("Dang thoat chuong trinh....");
+			system("cls");
+			return 0;
 	}
   } while (1);
   return 0;

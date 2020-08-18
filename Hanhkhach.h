@@ -147,12 +147,15 @@ NODEPTRHK TimVaLayCMND (NODEPTRHK &root, char str[13])
 		else return NULL;
 
 }
-void NhapHK (NODEPTRHK &root, char str[13]){
+void NhapHK (NODEPTRHK &root, char str[13], int x){
 	char ho[30];char ten[10];int phai;
+		gotoxy(x*6, 12);
 		NhapChuoi("Nhap ho :",ho,25);
+		gotoxy(x*6, 13);
 		NhapChuoi("Nhap ten :",ten,10);
+		gotoxy(x*6, 14);
         printf("Nhap phai :");
-        cin >> phai;
+        phai = MenuYN(menuPhai,11);
         Insert_node(root,str,ho,ten,phai);soHanhKhach++; 
 	
 }

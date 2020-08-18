@@ -12,7 +12,7 @@ struct ChuyenBay{
   char noiden[30];
   char trangthai[5];
   char sohieumaybay[15];
-  VE *dsve= new Ve[MAXVE];
+  VE *dsve;//= new Ve[MAXVE];
   int sovedaban = 0;
   int socot;
   int sodong;
@@ -60,12 +60,7 @@ NODEPTRCB search_info2(NODEPTRCB First)
 	       BaoLoi ("Dinh dang sai "); 
 	       return NULL;
 	   }
-		if (strlen(sohieu)<15){
-	   	char f[15]=" ";
-	   	for (int i=0;i<13-strlen(sohieu);i++)  strcat(f," ");
-		   strcat(f,sohieu);
-		   strcpy(sohieu,f);
-	   }
+	ThemCach(sohieu);
 	while(p != NULL && strcmp(p->cb.machbay,sohieu)!=0){
 		p = p->next;
 	}
@@ -100,12 +95,7 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	       BaoLoi ("Dinh dang sai "); 
 	       continue;
 	   }
-		if (strlen(sh)<14){
-	   	char f[15]=" ";
-	   	for (int i=0;i<13-strlen(sh);i++)  strcat(f," ");
-		   strcat(f,sh);
-		   strcpy(sh,f);
-	   }
+		ThemCach(sh);
 	   strcpy(cb.machbay,sh);
 	   p=search_info(First, sh);if (p==NULL) strcmp(cb.machbay,sh); else {
 	   BaoLoi ("Ma chuyen bay bi trung "); 
@@ -124,12 +114,7 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 			BaoLoi ("Dinh dang sai "); 
 	       continue;
 	   } 
-	   if (strlen(sh)<15){
-	   	char f[15]=" ";
-	   	for (int i=0;i<13-strlen(sh);i++)  strcat(f," ");
-		   strcat(f,sh);
-		   strcpy(sh,f);
-	   }
+	   ThemCach(sh);
 	   int search=Search(ds1,sh);
 	   if (search==-1){
 	       BaoLoi ("Khong co so hieu may bay nay");
@@ -323,12 +308,7 @@ void SuaCB(nodeCB &ds, ChuyenBay &cb, listmb ds1, NODEPTRCB p){
 			BaoLoi ("Dinh dang sai "); 
 	       continue;
 	   }
-	   if (strlen(sh)<15){
-	   	char f[15]=" ";
-	   	for (int i=0;i<13-strlen(sh);i++)  strcat(f," ");
-		   strcat(f,sh);
-		   strcpy(sh,f);
-	   }
+	   ThemCach(sh);
 	   int search=Search(ds1,sh);
 	   if (search==-1){
 	       BaoLoi ("Khong co so hieu may bay nay");
@@ -371,15 +351,18 @@ void XoaCB(nodeCB &dscb,ChuyenBay cb,NODEPTRCB pp){
 	
 }
 void HuyCB(nodeCB ds, ChuyenBay cb, listmb ds1, NODEPTRCB p){
-	char yn[5];
-	NhapChuoi (  "\nBan chac chan huy chuyen bay nay? ( nhap Y de dong y)", yn,1) ;
-	if (strcmp(yn,"Y")==0||strcmp(yn,"y")==0)
+	gotoxy(cotNhap,dongNhap+6);
+	cout<<"Ban chac chan huy chuyen bay nay?";
+	int chonYN = MenuYN(menuYN,30); //30 la do dai cua chuoi cout tren
+	if (chonYN==0){
 	strcpy (cb.trangthai,"0");
 	strcpy (cb.machbay,p->cb.machbay);
 	strcpy (cb.noiden,p->cb.noiden);
 	strcpy (cb.sohieumaybay,p->cb.sohieumaybay);
-	cb.timebay=p->cb.timebay;
+	cb.timebay=p->cb.timebay;	
 	p->cb=cb;
+	}
+	
 }
 
 void BoxVe(int x, int y, char  text[5], int trth)
@@ -445,17 +428,26 @@ int ChonVe(NODEPTRCB p)
 {	system ("cls");
 	ChuyenBay cb;
 	cb=p->cb;
-	gotoxy(cb.socot*6, 4); cout << "DAT VE CHUYEN BAY "<<cb.machbay;
-	gotoxy(cb.socot*6, 5); cout << "CHON GHE MUON DAT. SO VE DA BAN: "<<cb.sovedaban<<"/"<<cb.socot*cb.sodong;
+	char* macb2=strrev(cb.machbay);
+	int i=0;
+	while (macb2[i]!=char(32)) i++;
+	while (macb2[i]==char(32)){
+		macb2[i]=char(0);
+		i++;
+	}
+	macb2=strrev(macb2);
+	
+	gotoxy(cb.socot*6, 4); cout << "So do ghe chuyen bay "<<macb2;
+	gotoxy(cb.socot*6, 5); cout << "So ve da ban: "<<cb.sovedaban<<"/"<<cb.socot*cb.sodong;
 	gotoxy(cb.socot*6, 6); cout << "Noi den: "<<cb.noiden;
 	gotoxy(cb.socot*6, 7); cout << "Time: ";OutputDateTime(cb.timebay);
-	for (int i=1; i<=cb.sodong*3+dongVe-2;i++){
+	for (int i=1; i<=cb.sodong*3+dongVe-1;i++){				//canh khung 2 ben
 		SetColor(Yellow);
 		gotoxy (0,i);cout<<char(186);
 		gotoxy (111,i);cout<<char(186);
 		
 	}
-	gotoxy(0,cb.sodong*3+dongVe-1);cout << char(200) << setw(111) << setfill(char(205))  << char (188);
+	gotoxy(0,cb.sodong*3+dongVe);cout << char(200) << setw(111) << setfill(char(205))  << char (188);//canh khung duoi cung
 	Normal();
 	//reset locate
 	currposVe = 1;
@@ -468,7 +460,7 @@ int ChonVe(NODEPTRCB p)
 	int c=cb.socot;
 	int sove=d*c;	
 	SetColor(Yellow);
-	gotoxy(0,0);cout << char(201) << setw(111) << setfill(char(205))  << char (187);
+	gotoxy(0,0);cout << char(201) << setw(111) << setfill(char(205))  << char (187); //canh khung tren cung
 	SetBGColor(Red);
 	gotoxy(cotVe-1, dongVe);
 	cout <<"A01"; Normal();

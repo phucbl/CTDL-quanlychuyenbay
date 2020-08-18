@@ -14,10 +14,11 @@ struct listmb {
   Maybay *nodes [MAXLIST];
 };
 int Search(listmb ds, char x[15]) {
+	int py=wherey();
 	 for (int i =0; i < ds.n ; i++)
-     if (strcmp(ds.nodes[i]->sohieumb, x)==0)  { gotoxy(cotNhap,dongNhap+1);
+     if (strcmp(ds.nodes[i]->sohieumb, x)==0)  { gotoxy(cotNhap,py+1);
      	printf( "Thong tin:       So hieu MB         Loai MB        So Day   So Dong\n");
-     	gotoxy(cotNhap+6,dongNhap+2);
+     	gotoxy(cotNhap+6,py+2);
 		 printf (" %8s \t\t %-12s \t%-5d\t %-5d\n", ds.nodes[i]->sohieumb, 
      ds.nodes[i]->loaimb, ds.nodes[i]->soday, ds.nodes[i]->sodong);
      	return i;
@@ -43,12 +44,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 	   		BaoLoi ("Dinh dang sai ");
 			continue;
 	   }
-	   if (strlen(sh)<14){
-	   	char f[15]=" ";
-	   	for (int i=0;i<13-strlen(sh);i++)  strcat(f," ");
-		   strcat(f,sh);
-		   strcpy(sh,f);
-	   }
+	   ThemCach(sh);
 	   int search=Search2(ds,sh);
 	   if (search>=0){
 	       BaoLoi ("So hieu bi trung ");
@@ -61,6 +57,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 	while (i==1){
 		gotoxy(cotNhap,dongNhap+1);
 		 NhapChuoi (  "Nhap loai may bay: ",sh,39);
+		 if (strcmp(sh,"0")==0) return 0;
 		if (CheckChuoi(sh,1,50)==-1) {
 	       BaoLoi ("Dinh dang sai "); 
 	       continue;
@@ -72,6 +69,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 		
 		gotoxy(cotNhap,dongNhap+2);
 	    NhapChuoi("Nhap so day: ",d,1);
+	    if (strcmp(d,"0")==0) return 0;
 		int b=CheckChuoi(d,2,10);
 		if (b==-1)
 		{	
@@ -86,7 +84,9 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 	   	while (i==1){  
 		
 		gotoxy(cotNhap,dongNhap+3);
-	    NhapChuoi ("Nhap so dong: ",d,2);int b=CheckChuoi(d,2,51);
+	    NhapChuoi ("Nhap so dong: ",d,2);
+	    if (strcmp(d,"0")==0) return 0;
+		int b=CheckChuoi(d,2,51);
 	    if (b==-1)
 		{
 	   		BaoLoi ("Nhap lai so dong (<=50)  ");
@@ -140,49 +140,6 @@ void LietKe (listmb ds) {
 	<< setw(21) << setfill(char(205)) <<char(207) << setw(22) << setfill(char(205)) << char (188);
  getch();
 }
-void ThongKeLuotBay (listmb ds) {
-	SetColor(LightCyan);
- 	gotoxy (50,1);
-	printf ("THONG KE LUOT BAY");
-	gotoxy (1,3);
- 	printf ("%15s %30s %45s","So hieu","Loai","Luot Bay");
- 	SetColor(Yellow);//ve khung
-		gotoxy (0,0); 
-		cout << char(201) << setw(110) << setfill(char(205)) << char(205) << char (187);
-		
-		gotoxy (0,1);cout << char(186);gotoxy (111,1);cout<<char(186);
-		
-		gotoxy (0,2);
-		cout << char(204) << setw(17) << setfill(char(205)) <<char(209)<< setw(51) << setfill(char(205)) <<char(209) 
-		<< setw(43) << setfill(char(205)) << char (185);
-		
-		gotoxy (0,3);cout << char(186);gotoxy (111,3);cout<<char(186);
-		
-		gotoxy(0,4);	
-		cout << char(204) << setw(17) << setfill(char(205)) <<char(216)<< setw(51) << setfill(char(205)) <<char(216) 
-		<< setw(43) << setfill(char(205)) << char (185);
-		
-		gotoxy (17,3);cout<<char(179); // 3 canh nho o giua
-		gotoxy (68,3);cout<<char(179);
-		Normal();
- 	
- for (int i =0 ; i < ds.n ; i++){
- 	gotoxy (1,i+5);
- 	SetColor(White);
-  	printf ("%15s %30s %45d \n", ds.nodes[i]->sohieumb, 
-     ds.nodes[i]->loaimb, ds.nodes[i]->luotbay);
- 	SetColor(Yellow);
-	gotoxy (0,i+5);cout << char(186); //  canh ngoai cung 2 ben
-	gotoxy (17,i+5);cout<<char(179); //3 canh nho o giua
-	gotoxy (68,i+5);cout<<char(179);
-	gotoxy (111,i+5);cout<<char(186)<<"\n";
- }
- 	cout << char(200) << setw(17) << setfill(char(205)) <<char(207)<< setw(51) << setfill(char(205)) <<char(207) // canh duoi cung
-	<< setw(43) << setfill(char(205)) << char (188);
- getch();
-}
-
-
 void SuaMb( listmb &ds, int i) { 
 	 
 	 int day,dong;
@@ -197,6 +154,7 @@ void SuaMb( listmb &ds, int i) {
 		while (ooo==1){
 			gotoxy(cotMenuSua,dongMenuSua+2);
 			NhapChuoi("Nhap loai may bay: ",c,50);
+			if (strcmp(c,"0")==0) return ;
 			if (CheckChuoi(c,1,50)==-1) {
 	       		BaoLoi ("Dinh dang sai ");
 	       		gotoxy(cotMenuSua,dongMenuSua+2);cout<<"                                                   ";
@@ -208,7 +166,9 @@ void SuaMb( listmb &ds, int i) {
 		
 		while (ooo==1){
 			gotoxy(cotMenuSua,dongMenuSua+3);
-			NhapChuoi (  "Nhap so day: ", text, 2) ;day=CheckChuoi(text,2,10);
+			NhapChuoi (  "Nhap so day: ", text, 2) ;
+			if (strcmp(text,"0")==0) return ;
+			day=CheckChuoi(text,2,10);
 			if (day==-1) {
 	       		BaoLoi ("So day phai <10");
 	       		gotoxy(cotMenuSua,dongMenuSua+3);cout<<"                                                   ";
@@ -220,7 +180,9 @@ void SuaMb( listmb &ds, int i) {
 		ooo=1;
 		while (ooo==1){
 			gotoxy(cotMenuSua,dongMenuSua+4);
-			NhapChuoi (  "Nhap so dong: ", text,2) ;dong=CheckChuoi(text,2,50);
+			NhapChuoi (  "Nhap so dong: ", text,2) ;
+			if (strcmp(text,"0")==0) return ;
+			dong=CheckChuoi(text,2,50);
 			if (dong==-1) {
 	       BaoLoi ("So dong phai <50");
 	       gotoxy(cotMenuSua,dongMenuSua+4);cout<<"                                                   ";
@@ -231,8 +193,13 @@ void SuaMb( listmb &ds, int i) {
 		
 		
 		gotoxy(cotMenuSua,dongMenuSua+5);
-		NhapChuoi (  "Chac chan sua thong tin may bay nay (nhap Y de dong y): ", yn,1) ;
-		if (strcmp(yn,"Y")==0||strcmp(yn,"y")==0){
+		
+		cout<<"Chac chan sua thong tin may bay nay?";
+	
+		int chonYN=MenuYN(menuYN,36); //36 la do dai chuoi cout hang tren
+		
+		
+		if (chonYN==0){
 			strcpy (ds.nodes[i]->loaimb,c);
 			ds.nodes[i]->soday=day;
 			ds.nodes[i]->sodong=dong;
@@ -319,4 +286,54 @@ void InsertOrderLuotBay(listmb &ds, Maybay mb){
 	ds.nodes[j]= new Maybay;
 	*ds.nodes[j]=mb; ds.n++;
 	return ;
+}
+void ThongKeLuotBay (listmb dsmb) {
+	Maybay mblb;
+	listmb dsmbluotbay;
+	dsmbluotbay.n=0;
+	for (int i = 0; i<dsmb.n; i++)
+	{	
+	mblb=*dsmb.nodes[i];
+	InsertOrderLuotBay(dsmbluotbay,mblb);
+	}
+	system ("cls");
+	SetColor(LightCyan);
+ 	gotoxy (50,1);
+	printf ("THONG KE LUOT BAY");
+	gotoxy (1,3);
+ 	printf ("%15s %30s %45s","So hieu","Loai","Luot Bay");
+ 	SetColor(Yellow);//ve khung
+		gotoxy (0,0); 
+		cout << char(201) << setw(110) << setfill(char(205)) << char(205) << char (187);
+		
+		gotoxy (0,1);cout << char(186);gotoxy (111,1);cout<<char(186);
+		
+		gotoxy (0,2);
+		cout << char(204) << setw(17) << setfill(char(205)) <<char(209)<< setw(51) << setfill(char(205)) <<char(209) 
+		<< setw(43) << setfill(char(205)) << char (185);
+		
+		gotoxy (0,3);cout << char(186);gotoxy (111,3);cout<<char(186);
+		
+		gotoxy(0,4);	
+		cout << char(204) << setw(17) << setfill(char(205)) <<char(216)<< setw(51) << setfill(char(205)) <<char(216) 
+		<< setw(43) << setfill(char(205)) << char (185);
+		
+		gotoxy (17,3);cout<<char(179); // 3 canh nho o giua
+		gotoxy (68,3);cout<<char(179);
+		Normal();
+ 	
+ for (int i =0 ; i < dsmbluotbay.n ; i++){
+ 	gotoxy (1,i+5);
+ 	SetColor(White);
+  	printf ("%15s %30s %45d \n", dsmbluotbay.nodes[i]->sohieumb, 
+     dsmbluotbay.nodes[i]->loaimb, dsmbluotbay.nodes[i]->luotbay);
+ 	SetColor(Yellow);
+	gotoxy (0,i+5);cout << char(186); //  canh ngoai cung 2 ben
+	gotoxy (17,i+5);cout<<char(179); //3 canh nho o giua
+	gotoxy (68,i+5);cout<<char(179);
+	gotoxy (111,i+5);cout<<char(186)<<"\n";
+ }
+ 	cout << char(200) << setw(17) << setfill(char(205)) <<char(207)<< setw(51) << setfill(char(205)) <<char(207) // canh duoi cung
+	<< setw(43) << setfill(char(205)) << char (188);
+ getch();
 }

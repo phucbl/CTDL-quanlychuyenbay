@@ -10,6 +10,7 @@
 
 
 
+
 using namespace std;
 
 //keyboard
@@ -85,7 +86,10 @@ char thucdon2 [so_item2][50] = {"",
 							  	"1. Tro ve ",
 			                  	"2. Sua    ",
 			                  	"3. Xoa    ",			                  	
-			                };   
+			                };
+char menuYN [2][5] = {"Yes","No"};
+char menuPhai[2][5] = {"Nam","Nu"};
+
 inline int num(char x){ return x - '0';}
 void Normal () {
 	SetColor(White);
@@ -95,7 +99,15 @@ void HighLight () {
 	SetColor(White);
 	SetBGColor(DarkGray);
 }
-
+void ThemCach(char *str){
+	int len=strlen(str);
+	if (len<14){
+		char f[15]=" ";
+	for (int i=0;i<13-len;i++)  strcat(f," ");
+	strcat(f,str);
+	strcpy(str,f);
+	}
+}
 void KhungMenu(){
 	SetColor(Yellow);
 	gotoxy (0,0);
@@ -114,6 +126,42 @@ void KhungMenu(){
 	gotoxy (0,21);
 	cout << char(200) << setw(34) << setfill(char(205)) << char(205) << char(202)<<setw(75) << setfill(char(205)) << char(205)<< char (188);
 		
+}
+int MenuYN (char td[2][5],int x)
+{	int py=wherey();int chon=0;
+	int px=wherex()+5-x;
+	gotoxy(px+20,py+1);cout<<td[1];
+	HighLight();gotoxy(px,py+1);cout<<td[0];
+	char kytu;
+	do {
+  	kytu = getch();
+  	if (kytu==0) kytu = getch();
+  	switch (kytu) {
+			    case Right : if(chon+1 <2)
+			  			{
+			  		        Normal();
+			              	gotoxy(px,py+1);
+			              	cout << td[chon];
+			              	chon++;
+			              	HighLight();
+			              	gotoxy(px+20,py+1);
+			              	cout << td[chon];  				
+			  			  }
+			  			  break;
+			  	case Left : if(chon-1 >=0)
+			  			{
+			  		        Normal();
+			              	gotoxy(px+20,py+1);
+			              	cout << td[chon];
+			              	chon--;
+			              	HighLight();
+			              	gotoxy(px,py+1);
+			              	cout << td[chon];  				
+			  			  }
+			  			  break;
+			  	case ENTER : Normal();return chon;  			  
+				}
+	}while (1);
 }
 int MenuDong(char td [so_item][50], int &chon){
   Normal();
@@ -184,7 +232,12 @@ do {
   				
   			  }
   			  break;
-  	case 13 : Normal();return chon;
+  	case ENTER : Normal();return chon;
+  	case ESC : { 
+				Normal();return chon=so_item;
+		break;
+	  }
+	  
   }  // end switch
   } while (1);
 }
@@ -244,67 +297,15 @@ void BaoLoi (char *s){
   cout<<"                                                            ";
   gotoxy(x,y);
 }
-/*void NhapChuoi (char *tieude, char *S) {
-	cout << tieude ;  fflush(stdin);
-    do
-	  gets(S);
-    while (strcmp(S,"")==0)  ;	
-}*/
-		
 
-/*void NhapChuoi (char *tieude, char *S, int max) {
-	cout << tieude ;
-	int lenght=0;
-			while(lenght<max)
-			{	
-				
-				int c=getch();if (c==224||c==42||c==43||c==45) {c=getch();continue;} 
-				if ((c>=65&&c<=90)||(c<=122&&c>=97)||c==32||c==47||c==58||c==8||c==13||(c>=48&&c<=57)){
-					S[lenght]= char (c);
-				}
-				S[lenght]=getch();
-				if (lenght ==0 && (S[lenght]=='\b' ||S[lenght]=='\r' )) { S[lenght]==char (0);continue;}
-				if (lenght >0 && S[lenght]=='\b'){
-					S[lenght]=char(0);
-					S[lenght-1]=char(0);
-					lenght=lenght-2;
-					putch(8);
-					cout<<" ";
-					putch(8);
-					}
-				else 
-					putch(S[lenght]);
-					if(S[lenght]=='\r'){
-						S[lenght]=char(0);break;
-					}
-					lenght++;
-				while (lenght==max) {
-					char wait[2];
-					
-					wait[0]=getch();
-					if (wait[0]=='\b')
-					{
-						S[lenght-1]=char(0);
-						lenght--;
-						putch(8);
-						cout<<" ";
-						putch(8);
-					}
-					if (wait[0]=='\r') break;
-					
-					continue;
-				}
-			}
-			
-			
-}*/
 void NhapChuoi (char *tieude, char *S, int max) {
 	cout << tieude ;max--;
 	int lenght=0;
 			while(lenght<=max)
 			{	
 				
-				int c=getch();if (c==224||c==42||c==43||c==45) {c=getch();continue;} 
+				int c=getch();if (c==224||c==42||c==43||c==45||c==46) {c=getch();continue;} 
+				if (c==27) {strcpy(S,"0");break;}		
 				if ((c>=65&&c<=90)||(c<=122&&c>=97)||c==32||c==47||c==58||c==8||c==13||(c>=48&&c<=57)){
 					S[lenght]= char (c);
 				}
@@ -343,12 +344,14 @@ void NhapChuoi (char *tieude, char *S, int max) {
 			
 			
 }
-int CheckChuoi (char *S, int a, int b){
-	
+int CheckChuoi (char *S, int a, int b){   //a la 1 thi check ky tu va b la do dai chuoi
+										 //a la 2 thi check so va b la max co the nhap
+										//a la 5 thi check so hieu, giong a la 1 nhung khong nhan. dau cach
+										//a la 3 thi check cmnd.
 	if (a==1){
 		if (strlen(S)>b) return -1;
-	int i;int e=strlen(S);
-	for(i=0;i<e;i++)
+	int i;int len=strlen(S);
+	for(i=0;i<len;i++)
 	{	
 		int c=S[i];
 		if ((c>=65&&c<=90)||(c<=122&&c>=97)||c==32||(c>=48&&c<=57))
@@ -358,12 +361,26 @@ int CheckChuoi (char *S, int a, int b){
 		
 	}
 	int c=S[0]; if (c==32) 	return -1;
-	c=S[e-1];	if (c==32) 	return -1;
+	c=S[len-1];	if (c==32) 	return -1;
+	}
+	if (a==5){
+		if (strlen(S)>b) return -1;
+	int i;int len=strlen(S);
+	for(i=0;i<len;i++)
+	{	
+		int c=S[i];
+		if ((c>=65&&c<=90)||(c<=122&&c>=97)||(c>=48&&c<=57))
+		i=i; else {
+			cout<<c; return -1;
+		}
+		
+	}
+	
 	}
 	if (a==2){
 		int i;int d=0;
-	int e=strlen(S);
-	for(i=0;i<e;i++)
+	int len=strlen(S);
+	for(i=0;i<len;i++)
 	{	
 		int c=num(S[i]);
 		if (0<=c && c<=9)
@@ -374,4 +391,9 @@ int CheckChuoi (char *S, int a, int b){
 	}
 	return 1;		
 }
-
+char* substring(char* s,int pos)    {
+    
+    char* t = &s[pos];
+    s[pos-1] = '\0';
+    return t;
+}
