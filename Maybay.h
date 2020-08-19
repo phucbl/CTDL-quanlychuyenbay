@@ -212,7 +212,7 @@ void SuaMb( listmb &ds, int i) {
 void TangLuotBay( listmb ds, int i) { 
 	ds.nodes[i]->luotbay++;
 }
-void GiamLuotBay( listmb ds, int i) { 
+void GiamLuotBay( listmb &ds, int i) { 
 	ds.nodes[i]->luotbay--;
 }
 
@@ -224,7 +224,7 @@ void SaveFileMB(listmb ds,char *filename) {
  for (int i=0; i < ds.n; i++)
    fwrite (ds.nodes[i], sizeof (Maybay), 1, f);
  fclose(f);
- BaoLoi ("Da ghi xong danh sach may bay vao file");
+ //BaoLoi ("Da ghi xong danh sach may bay vao file");
 
 }
 void OpenFileMB(listmb &ds, char *filename) {

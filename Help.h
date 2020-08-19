@@ -38,11 +38,11 @@ const int Down = 80;
 #define Yellow       14
 #define White        15
 //menu
-const int so_item = 18;
+const int so_item = 15;
 const int so_item2 = 4;
 const int dongMenu =1;
 const int cotMenu = 2;
-const int dongMenuSua = 4;
+const int dongMenuSua = 6;
 const int cotMenuSua = 37;
 const int cotNhap = 37;
 const int dongNhap = 1;
@@ -67,19 +67,16 @@ char thucdon [so_item][50] = {	"------------ MAY BAY -----------",
 			                  	"  Liet ke danh sach may bay     ",
 			                  	"  Tim/sua/xoa may bay           ",
 			                  	"  Thong ke luot bay             ",
-			                  	"  Save MB                       ",
 			                  	"---------- CHUYEN BAY ----------",
 			                  	"  Them 1 chuyen bay             ",
 			                   	"  Liet ke danh sach chuyen bay  ",
 			                   	"  Tim/sua/xoa chuyen bay        ",
 			                   	"  Huy chuyen bay                ",
-			                   	"  Save CB                       ",
 			                   	"-------------- VE --------------",
 			                  	"  Dat ve                        ",
 			                   	"  Huy ve                        ",
 			                   	"  Tra chuyen bay theo ngay      ",
-			                   	"                                ",
-			                   	"  Save CB                       ",
+			                   	"  In danh sach hanh khach       ",
 			                   	
 			                };   
 char thucdon2 [so_item2][50] = {"",
@@ -112,18 +109,18 @@ void KhungMenu(){
 	SetColor(Yellow);
 	gotoxy (0,0);
 	cout << char(201) << setw(34) << setfill(char(205)) << char(205) << char(203)<<setw(75) << setfill(char(205)) << char(205)<< char (187);
-	for (int i=1;i<19;i++)
+	for (int i=1;i<16;i++)
 		{
 			gotoxy (0,i);cout << char(186);
 			gotoxy (35,i);cout<<char(186);
 			gotoxy (111,i);cout<<char(186);
 		}
-	gotoxy (0,19);
+	gotoxy (0,16);
 	cout << char(204) << setw(34) << setfill(char(205)) << char(205) << char(206)<<setw(75) << setfill(char(205)) << char(205)<< char (185);
-	gotoxy (0,20);cout << char(186); cout<<"ESC: Thoat";
-	gotoxy (35,20);cout<<char(186);
-	gotoxy (111,20);cout<<char(186);
-	gotoxy (0,21);
+	gotoxy (0,17);cout << char(186); cout<<"ESC: Luu va thoat";
+	gotoxy (35,17);cout<<char(186);
+	gotoxy (111,17);cout<<char(186);
+	gotoxy (0,18);
 	cout << char(200) << setw(34) << setfill(char(205)) << char(205) << char(202)<<setw(75) << setfill(char(205)) << char(205)<< char (188);
 		
 }
@@ -171,7 +168,7 @@ int MenuDong(char td [so_item][50], int &chon){
   int i; 
   for ( i=0; i< so_item ; i++)
   { gotoxy(cotMenu, dongMenu +i);
-  	if (i%6==0) SetColor(Yellow);
+  	if (i%5==0) SetColor(LightBlue);
     cout << td[i];
 	SetColor(White);
   }
@@ -188,7 +185,7 @@ do {
   		        Normal();
               	gotoxy(cotMenu,dongMenu+chon);
               	cout << td[chon];
-              	chon --;if (chon%6==0) chon--;
+              	chon --;if (chon%5==0) chon--;
               	HighLight();
               	gotoxy(cotMenu,dongMenu+chon);
               	cout << td[chon];
@@ -200,19 +197,19 @@ do {
   		        Normal();
               	gotoxy(cotMenu,dongMenu+chon);
               	cout << td[chon];
-              	chon ++;if (chon%6==0) chon++;
+              	chon ++;if (chon%5==0) chon++;
               	HighLight();
               	gotoxy(cotMenu,dongMenu+chon);
               	cout << td[chon];
   				
   			  }
   			  break;
-  	case Right : if(chon+6 <so_item)
+  	case Right : if(chon+5 <so_item)
   			{
   		        Normal();
               	gotoxy(cotMenu,dongMenu+chon);
               	cout << td[chon];
-              	chon=chon+6;
+              	chon=chon+5;
               	HighLight();
               	gotoxy(cotMenu,dongMenu+chon);
               	cout << td[chon];
@@ -220,12 +217,12 @@ do {
   			  }
   			  break;
 	
-  	case Left : if(chon-6 >=1)
+  	case Left : if(chon-5 >=1)
   			{
   		        Normal();
               	gotoxy(cotMenu,dongMenu+chon);
               	cout << td[chon];
-              	chon=chon-6;
+              	chon=chon-5;
               	HighLight();
               	gotoxy(cotMenu,dongMenu+chon);
               	cout << td[chon];
@@ -251,7 +248,9 @@ int MenuDong2(char td [so_item2][50]){
   }
   
   gotoxy(cotMenuSua,dongMenuSua+chon);
+  HighLight();
   cout << td[chon];
+  Normal();
   char kytu;
 do {
   kytu = getch();
@@ -261,12 +260,14 @@ do {
   			  {
   		        
               	gotoxy(cotMenuSua,dongMenuSua+chon);
+              	
               	cout << td[chon];
               	chon --;
               	
               	gotoxy(cotMenuSua,dongMenuSua+chon);
+              	HighLight();
               	cout << td[chon];
-  				
+  				Normal();
   			  }
   			  break;
   	case Down :if (chon+1 <so_item2)
@@ -277,8 +278,9 @@ do {
               	chon ++;
               	
               	gotoxy(cotMenuSua,dongMenuSua+chon);
+              	HighLight();
               	cout << td[chon];
-  				
+  				Normal();
   			  }
   			  break;
   	case 13 : return chon;
@@ -288,7 +290,7 @@ do {
 
 void BaoLoi (char *s){
   int x=wherex() , y=wherey();
-  gotoxy (37,20);
+  gotoxy (37,17);
   SetColor(LightGreen);
   cout <<s;
   Normal();

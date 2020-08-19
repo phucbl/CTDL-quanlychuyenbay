@@ -90,18 +90,7 @@ void  remove (char x[13] ,  NODEPTRHK &p )
 		 delete rp;
 	       }
 }
-/*NODEPTRHK SearchHK (NODEPTRHK root, char x[13])
-{
-   NODEPTRHK p;
-   p = root;
-   while (p != NULL && strcmp(x,p->cmnd)!=0)
-    if(strcmp(x,p->cmnd)<0)
-         p = p->left;
-      else
-         p = p->right;
 
-return(p); 
-}*/
 void Insert_node(NODEPTRHK &p, char cmnd[13], char ho[30], char ten[10], int phai)
 { 
    if(p == NULL)    // nút p hien tai se là nút lá
@@ -125,18 +114,6 @@ int CheckTrungCMND(NODEPTRHK &root,char str[13])
         	BaoLoi(" Da co du lieu CMND nay. "); return 1;
 		}
 		else return 0;
-        
-    /*{
-         printf("Nhap ho :");
-         cin >> ho;
-         printf("Nhap ten :");
-         cin >> ten;
-         printf("Nhap phai :");
-         cin >> phai;
-         Insert_node(root,cmnd,ho,ten,phai);soHanhKhach++; 
-     }*/
-		
-//  } while (strcmp(cmnd,"0")!=0); 
 }
 NODEPTRHK TimVaLayCMND (NODEPTRHK &root, char str[13])
 { 		NODEPTRHK p;
@@ -147,13 +124,13 @@ NODEPTRHK TimVaLayCMND (NODEPTRHK &root, char str[13])
 		else return NULL;
 
 }
-void NhapHK (NODEPTRHK &root, char str[13], int x){
+void NhapHK (NODEPTRHK &root, char str[13], int px){
 	char ho[30];char ten[10];int phai;
-		gotoxy(x*6, 12);
+		gotoxy(px*6, 12);
 		NhapChuoi("Nhap ho :",ho,25);
-		gotoxy(x*6, 13);
+		gotoxy(px*6, 13);
 		NhapChuoi("Nhap ten :",ten,10);
-		gotoxy(x*6, 14);
+		gotoxy(px*6, 14);
         printf("Nhap phai :");
         phai = MenuYN(menuPhai,11);
         Insert_node(root,str,ho,ten,phai);soHanhKhach++; 
@@ -164,7 +141,14 @@ void GhiHanhKhachVaoFile(NODEPTRHK p, FILE * &file)
 	if (p != NULL)
 	{
 		Hanhkhach hk;
-		strcpy(hk.cmnd,p->cmnd);
+		/*char cmnd[13];strcpy(cmnd,p->cmnd);
+		if (strlen(cmnd)<9){
+			char f[9]="0";
+			for (int i=0;i<8-strlen(cmnd);i++)  strcat(f,"0");
+			strcat(f,cmnd);
+			strcpy(p->cmnd,f);
+			}*/
+		strcpy(hk.cmnd,p->cmnd);		
 		strcpy(hk.ho,p->ho);
 		strcpy(hk.ten,p->ten);
 		hk.phai=p->phai;

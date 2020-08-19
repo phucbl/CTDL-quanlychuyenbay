@@ -112,7 +112,8 @@ void ValidDateTime(DATETIME &dt)
 		int xx=wherex();int yy=wherey();
 		while(flagSize)
 		{
-				
+				gotoxy(xx,yy);
+				cout<<"                                                 ";
 				gotoxy(xx,yy);
 				NhapChuoi("Nhap datetime: ",strDateTime,16);
 				
@@ -214,16 +215,7 @@ void ValidDateTime(DATETIME &dt)
 }
 void ValidDate(DATETIME &dt)
 {
-	//time_t now = time(0);
-	//tm *ltm = localtime(&now);
 	DATETIME dtFlight;
-	
-	//dtNow.y = 1900 + ltm->tm_year;
-	//dtNow.m = 1 + ltm->tm_mon;
-	//dtNow.d = ltm->tm_mday;
-	//dtNow.h = ltm->tm_hour;
-	//dtNow.mi = ltm->tm_min;
-
 	bool flagDateTime = true;
 	while(flagDateTime)
 	{
