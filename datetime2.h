@@ -39,13 +39,13 @@ bool isRightDateTime(char* strDateTime, int n)
 
 void OutputDateTime(DATETIME &dt)
 {
-	cout << setw(2) << setfill('0') <<dt.h << ":" << setw(2) 
-		 << setfill('0') <<dt.mi << " " << setw(2) << setfill('0') <<dt.d << "/" << setw(2) 
-		 << setfill('0') <<dt.m << "/" << dt.y;
+	cout<< setw(2) << setfill('0') <<dt.h << ":" 
+		<< setw(2) << setfill('0') <<dt.mi << " " 
+		<< setw(2) << setfill('0') <<dt.d << "/" 
+		<< setw(2) << setfill('0') <<dt.m << "/" << dt.y;
 }
 int CompareDateTimeToNow(DATETIME dt2)
 {	
-	//DATETIME dt1;
 	time_t baygio = time(0);
 	tm *ltm = localtime(&baygio);
 	DATETIME dtNow;
@@ -61,7 +61,7 @@ int CompareDateTimeToNow(DATETIME dt2)
 	if (dt2.h > dtNow.h) return 1;if (dt2.h < dtNow.h) return 0;
 	if (dt2.mi > dtNow.mi) return 1;if (dt2.mi <= dtNow.mi) return 0;
 	return 0;
-	//return dt1.d == dt2.d && dt2.m == dt1.m && dt1.y == dt2.y;
+	
 }
 int Compare2DateTime (DATETIME dt1,DATETIME dt2){
 	if (dt2.y > dt1.y ) return 1;if (dt2.y < dt1.y ) return 0;
@@ -78,11 +78,8 @@ int IsSame2Date (DATETIME dt1,DATETIME dt2){
 	if (dt2.d != dt1.d) return 0;
 	return 1;
 }
-
-
 bool IsRightMonth(DATETIME dt)
 {	
-	
 	nDayOfMonth[2] = 28;
 	if ((dt.y % 400 == 0) || (dt.y % 4 == 0 && dt.y % 100 != 0))
 		nDayOfMonth[2] = 29;
@@ -90,8 +87,7 @@ bool IsRightMonth(DATETIME dt)
 		return false;
 	return true;
 }
-
-void ValidDateTime(DATETIME &dt)
+int ValidDateTime(DATETIME &dt)
 {
 	time_t now = time(0);
 	tm *ltm = localtime(&now);
@@ -116,7 +112,7 @@ void ValidDateTime(DATETIME &dt)
 				cout<<"                                                 ";
 				gotoxy(xx,yy);
 				NhapChuoi("Nhap datetime: ",strDateTime,16);
-				
+				if (strcmp(strDateTime,"0")==0) return 0 ;
 				if (strlen(strDateTime) == 16)
 					flagSize = false;
 				else{
@@ -133,7 +129,6 @@ void ValidDateTime(DATETIME &dt)
 		char hour[] = {strDateTime[11], strDateTime[12]};
 		char minute[] = {strDateTime[14], strDateTime[15]};
 		int y, m, d, h, mi;
-		
 		if(isRightDateTime(year, 4))
 			y = ConvertCharToInt(year, 4);
 		else
@@ -146,7 +141,6 @@ void ValidDateTime(DATETIME &dt)
 			cout << "Nhap nam khong dung" << endl;
 			continue;
 		}
-			
 		if(isRightDateTime(month, 2))
 			m = ConvertCharToInt(month, 2);	
 		else
@@ -159,11 +153,9 @@ void ValidDateTime(DATETIME &dt)
 			cout << "Nhap thang khong dung" << endl;
 			continue;
 		}
-		
 		nDayOfMonth[2] = 28;
 		if ((dtFlight.y % 400 == 0) || (dtFlight.y % 4 == 0 && dtFlight.y % 100 != 0))
 		nDayOfMonth[2] = 29;
-		
 		if(isRightDateTime(day, 2))
 			d = ConvertCharToInt(day, 2);	
 		else
@@ -176,10 +168,8 @@ void ValidDateTime(DATETIME &dt)
 			cout << "Nhap ngay khong dung" << endl;
 			continue;
 		}
-			
 		if(isRightDateTime(hour, 2))
 			h = ConvertCharToInt(hour, 2);
-			
 		else
 		{
 			cout << "Nhap gio khong dung" << endl;
@@ -190,7 +180,6 @@ void ValidDateTime(DATETIME &dt)
 			cout << "Nhap gio khong dung" << endl;
 			continue;
 		}
-		
 		if(isRightDateTime(minute, 2))
 			mi = ConvertCharToInt(minute, 2);			
 		else
@@ -203,7 +192,6 @@ void ValidDateTime(DATETIME &dt)
 			cout << "Nhap phut khong dung" << endl;
 			continue;
 		}
-		
 		dtFlight.y = y;
 		dtFlight.m = m;
 		dtFlight.d = d;
@@ -212,23 +200,22 @@ void ValidDateTime(DATETIME &dt)
 		dt = dtFlight;
 		flagDateTime = false;
 	}
+	return 1;
 }
-void ValidDate(DATETIME &dt)
+int ValidDate(DATETIME &dt)
 {
 	DATETIME dtFlight;
 	bool flagDateTime = true;
 	while(flagDateTime)
 	{
-		//OutputDateTime(dtNow);
 		
 		bool flagSize = true;
 		int xx=wherex();int yy=wherey();
 		while(flagSize)
 		{		
-				
 				gotoxy(xx,yy);
-				NhapChuoi("Nhap datetime: ",strDateTime,10);
-				
+				NhapChuoi("Nhap date: ",strDateTime,10);
+				if (strcmp(strDateTime,"0")==0) return 0 ;
 				if (strlen(strDateTime) == 10)
 					flagSize = false;
 				else{
@@ -237,8 +224,7 @@ void ValidDate(DATETIME &dt)
 					gotoxy(xx,yy);
 					cout << "                              ";
 					continue;
-				}
-					
+				}	
 		}
 		gotoxy(xx,yy+1);
 		cout << "                              ";
@@ -256,8 +242,6 @@ void ValidDate(DATETIME &dt)
 			cout << "Nhap nam khong dung" << endl;
 			continue;
 		}
-		
-			
 		if(isRightDateTime(month, 2))
 			m = ConvertCharToInt(month, 2);	
 		else
@@ -270,11 +254,9 @@ void ValidDate(DATETIME &dt)
 			cout << "Nhap thang khong dung" << endl;
 			continue;
 		}
-		
 		nDayOfMonth[2] = 28;
 		if ((dtFlight.y % 400 == 0) || (dtFlight.y % 4 == 0 && dtFlight.y % 100 != 0))
 		nDayOfMonth[2] = 29;
-		
 		if(isRightDateTime(day, 2))
 			d = ConvertCharToInt(day, 2);	
 		else
@@ -287,9 +269,6 @@ void ValidDate(DATETIME &dt)
 			cout << "Nhap ngay khong dung" << endl;
 			continue;
 		}
-			
-		
-		
 		dtFlight.y = y;
 		dtFlight.m = m;
 		dtFlight.d = d;
@@ -298,10 +277,5 @@ void ValidDate(DATETIME &dt)
 		dt = dtFlight;
 		flagDateTime = false;
 	}
+	return 1;
 }
-/*int main()
-{
-	DATETIME dtFlight;
-	ValidDateTime(dtFlight);
-	OutputDateTime(dtFlight);
-}*/

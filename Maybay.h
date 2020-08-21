@@ -39,7 +39,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 		gotoxy(cotNhap,dongNhap);
 	   NhapChuoi (  "Nhap so hieu may bay (=0 la ket thuc) : ", sh,14);
 	   if (strcmp(sh,"0")==0) return 0;
-	   if (CheckChuoi(sh,1,15)==-1) 
+	   if (CheckChuoi(sh,5,14)==-1) 
 	   {   
 	   		BaoLoi ("Dinh dang sai ");
 			continue;
@@ -58,7 +58,7 @@ int  NhapMB ( listmb &ds, Maybay &mb){
 		gotoxy(cotNhap,dongNhap+1);
 		 NhapChuoi (  "Nhap loai may bay: ",sh,39);
 		 if (strcmp(sh,"0")==0) return 0;
-		if (CheckChuoi(sh,1,50)==-1) {
+		if (CheckChuoi(sh,1,40)==-1) {
 	       BaoLoi ("Dinh dang sai "); 
 	       continue;
 	   }
@@ -155,7 +155,7 @@ void SuaMb( listmb &ds, int i) {
 			gotoxy(cotMenuSua,dongMenuSua+2);
 			NhapChuoi("Nhap loai may bay: ",c,50);
 			if (strcmp(c,"0")==0) return ;
-			if (CheckChuoi(c,1,50)==-1) {
+			if (CheckChuoi(c,1,40)==-1) {
 	       		BaoLoi ("Dinh dang sai ");
 	       		gotoxy(cotMenuSua,dongMenuSua+2);cout<<"                                                   ";
 	       		continue;
@@ -182,7 +182,7 @@ void SuaMb( listmb &ds, int i) {
 			gotoxy(cotMenuSua,dongMenuSua+4);
 			NhapChuoi (  "Nhap so dong: ", text,2) ;
 			if (strcmp(text,"0")==0) return ;
-			dong=CheckChuoi(text,2,50);
+			dong=CheckChuoi(text,2,51);
 			if (dong==-1) {
 	       BaoLoi ("So dong phai <50");
 	       gotoxy(cotMenuSua,dongMenuSua+4);cout<<"                                                   ";

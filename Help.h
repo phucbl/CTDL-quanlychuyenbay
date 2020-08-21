@@ -7,10 +7,6 @@
 #include <windows.h>
 #include "mylib.h"
 #include <iomanip>
-
-
-
-
 using namespace std;
 
 //keyboard
@@ -54,12 +50,11 @@ int currposVeT = 1;
 //max tt mb-cb
 const int MAXLIST =300;
 const int MAXVE =500;
-
-
-
+//ten file
 char filenameMB[80]="D:\\DSMB.TXT"; 
 char filenameCB[80]="D:\\DSCB.TXT"; 
 char filenameHK[80]="D:\\DSHK.TXT"; 
+// mang
 char mangchucai [10][2] = {" ","A","B","C","D","E","F","G","H","I"};
 char mangchuso[10][2]= {"0","1","2","3","4","5","6","7","8","9"};
 char thucdon [so_item][50] = {	"------------ MAY BAY -----------",
@@ -229,13 +224,13 @@ do {
   				
   			  }
   			  break;
-  	case ENTER : Normal();return chon;
+  	case ENTER : Normal();return chon; // end switch
   	case ESC : { 
 				Normal();return chon=so_item;
 		break;
 	  }
 	  
-  }  // end switch
+  } 
   } while (1);
 }
 int MenuDong2(char td [so_item2][50]){
@@ -283,8 +278,8 @@ do {
   				Normal();
   			  }
   			  break;
-  	case 13 : return chon;
-  }  // end switch
+  	case 13 : return chon;// end switch
+  }  
   } while (1);
 }
 
@@ -295,9 +290,19 @@ void BaoLoi (char *s){
   cout <<s;
   Normal();
   Sleep(2000);
-  gotoxy(37,20);
-  cout<<"                                                            ";
+  //gotoxy(37,17);
+  //cout<<"                                                            ";
   gotoxy(x,y);
+}void ThongbaoVe (char *s,int px){
+  int x=wherex() , y=wherey();
+  gotoxy (px,18);
+  cout<<"                                              ";
+  gotoxy (px,19);
+  cout<<"                                              ";
+  gotoxy (px,19);
+  SetColor(LightGreen);
+  cout <<s;  
+  Sleep(2000);  
 }
 
 void NhapChuoi (char *tieude, char *S, int max) {
@@ -305,9 +310,10 @@ void NhapChuoi (char *tieude, char *S, int max) {
 	int lenght=0;
 			while(lenght<=max)
 			{	
-				
-				int c=getch();if (c==224||c==42||c==43||c==45||c==46) {c=getch();continue;} 
-				if (c==27) {strcpy(S,"0");break;}		
+				int c=getch();
+				if (c==224||c==0||c=='.'||c=='+'||c=='-'||c=='*') {c=getch();continue;}
+				if (c==ESC) {strcpy(S,"0");break;}
+				//if (c=='['||c==']'||c==char (92)|| c=='='|| c==39 || c==';'||c==',') continue;
 				if ((c>=65&&c<=90)||(c<=122&&c>=97)||c==32||c==47||c==58||c==8||c==13||(c>=48&&c<=57)){
 					S[lenght]= char (c);
 				}
@@ -343,22 +349,21 @@ void NhapChuoi (char *tieude, char *S, int max) {
 					continue;
 				}
 			}
-			
-			
 }
 int CheckChuoi (char *S, int a, int b){   //a la 1 thi check ky tu va b la do dai chuoi
 										 //a la 2 thi check so va b la max co the nhap
-										//a la 5 thi check so hieu, giong a la 1 nhung khong nhan. dau cach
-										//a la 3 thi check cmnd.
+										//a la 5 thi check so hieu, giong a la 1 nhung khong co dau cach
+										//a la 3 thi check cmnd chi co so'
+										//a la 4 thi check ten, chuan hoa ten, xoa cach, in hoa. kiem tra do dai
 	if (a==1){
 		if (strlen(S)>b) return -1;
 	int i;int len=strlen(S);
 	for(i=0;i<len;i++)
 	{	
 		int c=S[i];
-		if ((c>=65&&c<=90)||(c<=122&&c>=97)||c==32||(c>=48&&c<=57))
+		if ((c>='A'&&c<='Z')||(c<='z'&&c>='a')||(c>='0'&&c<='9'))
 		i=i; else {
-			cout<<c; return -1;
+			 return -1;
 		}
 		
 	}
@@ -371,9 +376,9 @@ int CheckChuoi (char *S, int a, int b){   //a la 1 thi check ky tu va b la do da
 	for(i=0;i<len;i++)
 	{	
 		int c=S[i];
-		if ((c>=65&&c<=90)||(c<=122&&c>=97)||(c>=48&&c<=57))
+		if ((c>='A'&&c<='Z')||(c<='z'&&c>='a')||(c>='0'&&c<='9'))
 		i=i; else {
-			cout<<c; return -1;
+			 return -1;
 		}
 		
 	}
@@ -391,11 +396,42 @@ int CheckChuoi (char *S, int a, int b){   //a la 1 thi check ky tu va b la do da
 	}
 		if (b<=d) return -1; else return d;
 	}
+	if (a==3){
+		int i;
+		int len=strlen(S);
+		for(i=0;i<len;i++) {
+			if ('9'<=S[i] || S[i]<='0') return -1;
+		}
+	}
+	if (a==4){
+		int i;
+		for(i=0;i<strlen(S)-1;i++) {
+			if ((S[i]>='A'&&S[i]<='Z')||(S[i]<='z'&&S[i]>='a'||S[i]==' ')) {
+				if (S[i]==' ' && S[i+1]==' ')
+				{
+					strcpy(&S[i],&S[i+1]); i--;
+				}
+				if (S[i]==' ' && S[i+1]!=' ') S[i+1] -= 32 * (S[i+1] >= 'a' && S[i+1] <= 'z');
+				if (S[i]!=' ' && S[i+1]!=' ') S[i+1] += 32 * (S[i+1] >= 'A' && S[i+1] <= 'Z');
+			}
+			 else {
+			 return -1;
+			}
+			
+		}
+		if ((S[i]>='A'&&S[i]<='Z')||(S[i]<='z'&&S[i]>='a'||S[i]==' ')) i=i;
+		else 
+			 return -1;
+		do{
+			if (S[strlen(S)-1]==' ') S[strlen(S)-1]=char (0);
+		} while (S[strlen(S)-1]==' ');
+		
+		strcpy(S,strrev(S));
+		do{
+			if (S[strlen(S)-1]==' ') S[strlen(S)-1]=char (0);
+		} while (S[strlen(S)-1]==' ');
+		strcpy(S,strrev(S));
+		S[0] -= 32 * (S[0] >= 'a' && S[0] <= 'z');
+	}
 	return 1;		
-}
-char* substring(char* s,int pos)    {
-    
-    char* t = &s[pos];
-    s[pos-1] = '\0';
-    return t;
 }

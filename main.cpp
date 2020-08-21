@@ -4,9 +4,8 @@
 #include "Hanhkhach.h"
 
 int main (){ 
-  system ("cls"); Normal();
+  //system ("cls");//Normal();
   
-	
   int chon,chon2;  listmb dsmb; dsmb.n=0; char sohieu[16];
   Maybay mb; ChuyenBay cb; nodeCB dscb;int chona=1,chonb=1;
   char tempCMND[13];
@@ -31,7 +30,7 @@ int main (){
     case 3: { 	gotoxy(cotNhap,dongNhap);
 				NhapChuoi (  "Nhap so hieu may bay: ", sohieu,14) ;				
     			ThemCach(sohieu);
-    			int d=Search(dsmb,sohieu);    			
+    			int d=Search(dsmb,sohieu);
 				if (d>=0){
 					int c=1;
     				while (c==1){
@@ -61,7 +60,6 @@ int main (){
 		  break;
 	    };    
 	
-    //case 5 :   {SaveFileMB(dsmb,filenameMB);break;}
     case 6 :	{ if (NhapCB(dscb,cb,dsmb)==1) 	InsertOrderCB (First,cb);
     		break;	
 		}
@@ -166,22 +164,22 @@ int main (){
 				else BaoLoi("Khong co ma chuyen bay nay");
 				break;	
 			}
-
-	//case 10: { 
-	//	SaveFileCB(First,filenameCB);
-	//	SaveHanhKhach(tree);
-	//	break;
-	//}
 	case 11: {	char sohieu[15];
-				p = First;gotoxy(cotNhap,dongNhap);
-				NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu,14) ;int c=1;
-						 if (strcmp(sohieu,"0")==0) break;
-				   if (CheckChuoi(sohieu,1,15)==-1) 
+				p = First;int check=1;
+				while (check==1){					
+				gotoxy(cotNhap,dongNhap);
+				cout<<"                                             ";
+				gotoxy(cotNhap,dongNhap);
+				NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu,14) ;
+					if (strcmp(sohieu,"0")==0) break;
+				   if (CheckChuoi(sohieu,5,15)==-1) 
 				   {   
 				   
 				       BaoLoi ("Dinh dang sai "); 
-				       return NULL;
+				       continue;
 				   }
+				   check=0;
+				}if (strcmp(sohieu,"0")==0) break;
 					ThemCach(sohieu);
 				p = search_info(First,sohieu);
 				if (p!=NULL) 
@@ -238,7 +236,7 @@ int main (){
 				if (ptemp==NULL) {
 					NhapHK(tree,strcmnd,p->cb.socot); strcpy(p->cb.dsve[k - 1].cmnd,strcmnd); 
 				} else
-				{	
+				{
 				gotoxy(p->cb.socot*6, 12);
 				cout<<"Da co thong tin";
 				gotoxy(p->cb.socot*6, 13);
@@ -263,11 +261,11 @@ int main (){
 				cout<<"Xac nhan thong tin va dat ve";
 				int chonYN = MenuYN(menuYN,28); //28 la do dai cua chuoi cout "Xac nhan thong tin va dat ve"
 				if (chonYN!=0) break;
-				strcpy(p->cb.dsve[k - 1].cmnd,ptemp->cmnd);
+				strcpy(p->cb.dsve[k - 1].cmnd,strcmnd);
 				p->cb.dsve[k - 1].trth = 1;
 				p->cb.sovedaban++;
 				if (p->cb.socot*p->cb.sodong== p->cb.sovedaban) strcpy(p->cb.trangthai,"2");
-				BaoLoi(" DAT THANH CONG ");
+				ThongbaoVe("DAT THANH CONG ",p->cb.socot*6);
 				p=NULL;
 				}
 				else {
@@ -278,21 +276,22 @@ int main (){
 	}
 	case 12: { 	
 				char sohieu[16];
-				p = First;gotoxy(cotNhap,dongNhap);
-				NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu,14) ;int c=1;
-						 if (strcmp(sohieu,"0")==0) return NULL;
-				   if (CheckChuoi(sohieu,1,15)==-1) 
+				p = First;int check=1;
+				while (check==1){					
+				gotoxy(cotNhap,dongNhap);
+				cout<<"                                             ";
+				gotoxy(cotNhap,dongNhap);
+				NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu,14) ;
+					if (strcmp(sohieu,"0")==0) break;
+				   if (CheckChuoi(sohieu,5,15)==-1) 
 				   {   
 				   
 				       BaoLoi ("Dinh dang sai "); 
-				       return NULL;
+				       continue;
 				   }
-					if (strlen(sohieu)<15){
-				   	char f[15]=" ";
-				   	for (int i=0;i<13-strlen(sohieu);i++)  strcat(f," ");
-					   strcat(f,sohieu);
-					   strcpy(sohieu,f);
-				   }
+				   check=0;
+				}if (strcmp(sohieu,"0")==0) break;
+					ThemCach(sohieu);
 				p = search_info(First,sohieu);
 				if (p!=NULL) 
 				{
@@ -325,14 +324,7 @@ int main (){
 					system("cls");
 					break;
 				}
-				//system("cls");
-				/*if (strcmp(p->cb.dsve[k - 1].cmnd,"")==0) {bool yn;
-				cout<<"Xac nhan thong tin va huy ve ( nhap 1 de dong y)";cin>>yn;if (yn!=1) break;
-				p->cb.dsve[k - 1].trth = 0;
-				p->cb.sovedaban--;
-				if (p->cb.socot*p->cb.sodong< p->cb.sovedaban) strcpy(p->cb.trangthai,"1");
-				BaoLoi(" HUY VE THANH CONG ");	break;
-				}*/
+				
 				NODEPTRHK ptemp;
 				ptemp=TimVaLayCMND(tree,p->cb.dsve[k - 1].cmnd);
 				gotoxy(p->cb.socot*6, 10);
@@ -356,7 +348,7 @@ int main (){
 				p->cb.sovedaban--;
 				
 				if (p->cb.socot*p->cb.sodong< p->cb.sovedaban) strcpy(p->cb.trangthai,"1");
-				BaoLoi(" HUY VE THANH CONG ");
+				ThongbaoVe("HUY THANH CONG ",p->cb.socot*6);
 				p=NULL;
 			}
 	break;
@@ -369,7 +361,7 @@ int main (){
 				p = First;gotoxy(cotNhap,dongNhap);
 				NhapChuoi (  "Nhap so hieu chuyen bay: ", sohieu,14) ;int c=1;
 						 if (strcmp(sohieu,"0")==0) break;
-				   if (CheckChuoi(sohieu,1,15)==-1) 
+				   if (CheckChuoi(sohieu,5,15)==-1) 
 				   {   
 				   
 				       BaoLoi ("Dinh dang sai "); 

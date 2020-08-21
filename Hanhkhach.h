@@ -152,6 +152,8 @@ void GhiHanhKhachVaoFile(NODEPTRHK p, FILE * &file)
 		strcpy(hk.ho,p->ho);
 		strcpy(hk.ten,p->ten);
 		hk.phai=p->phai;
+		/*CheckChuoi(hk.ho,4,0);
+		CheckChuoi(hk.ten,4,0);*/
 		fwrite(&hk.cmnd,sizeof(hk.cmnd),1,file);
 		fwrite(&hk.ho,sizeof(hk.ho),1,file);
 		fwrite(&hk.ten,sizeof(hk.ten),1,file);

@@ -18,17 +18,16 @@ struct ChuyenBay{
   int socot;
   int sodong;
   DATETIME timebay;
-  
 };
 
 struct nodeCB {
 	ChuyenBay cb;		
 	struct nodeCB *next;
-	
 };
 typedef nodeCB *NODEPTRCB;
-	NODEPTRCB First;
-	NODEPTRCB p;
+NODEPTRCB First;
+NODEPTRCB p;
+
 void initialize(NODEPTRCB &First)
 {
    First = NULL;
@@ -46,10 +45,8 @@ NODEPTRCB search_info(NODEPTRCB First, char x[16])
 	while(p != NULL && strcmp(p->cb.machbay,x)!=0){
 		p = p->next;
 	}
-		
 	return(p);
 }
-
 
 int Empty(NODEPTRCB First)
 {
@@ -57,14 +54,12 @@ int Empty(NODEPTRCB First)
 }
 int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	int i=1;char sh[30];char str[50];int d;DATETIME time;
-		
 		while (i==1){
 			gotoxy(cotNhap,dongNhap);
 		 NhapChuoi (  "Nhap ma chuyen bay (=0 la ket thuc) : ", sh,14);
 	   if (strcmp(sh,"0")==0) return 0;
-	   if (CheckChuoi(sh,1,14)==-1) 
+	   if (CheckChuoi(sh,5,14)==-1) 
 	   {   
-	   
 	       BaoLoi ("Dinh dang sai "); 
 	       continue;
 	   }
@@ -82,49 +77,39 @@ int NhapCB(nodeCB &ds, ChuyenBay &cb, listmb ds1){
 	 	gotoxy(cotNhap,dongNhap+1);
 		NhapChuoi (  "Nhap so hieu may bay: ", sh,14);
 		if (strcmp(sh,"0")==0) return 0;
-		if (CheckChuoi(sh,1,14)==-1) 
-	   {   
+		if (CheckChuoi(sh,5,14)==-1) 
+		{   
 			BaoLoi ("Dinh dang sai "); 
-	       continue;
-	   } 
-	   ThemCach(sh);
-	   int search=Search(ds1,sh);
-	   if (search==-1){
+			continue;
+		} 
+		ThemCach(sh);
+		int search=Search(ds1,sh);
+		if (search==-1){
 	       BaoLoi ("Khong co so hieu may bay nay");
 	       continue;
-	   }
+		}
 	   	d=search;	   	
 	   	strcpy(cb.sohieumaybay,sh);strcpy(sh,"");i=0;
 	   	}
 	
-	 i=1;	 
-	 while (i==1){
+	i=1;	 
+	while (i==1){
 		gotoxy(cotNhap,dongNhap+4);
 		NhapChuoi (  "Nhap noi den: ", str,29);
 		if (strcmp(str,"0")==0) return 0;
-		if (CheckChuoi(str,1,29)==-1)
-	   {   
+		if (CheckChuoi(str,4,29)==-1)
+		{   
 			BaoLoi ("Dinh dang sai "); 
 	       continue;
-	   }
-	   strcpy(cb.noiden,str);strcpy(str,"");i=0;
-	 }	 
-	 i=1;
-	 //while (i==1){
-		//NhapChuoi (  "Nhap time khoi hanh: ", str);
-		gotoxy(cotNhap,dongNhap+5);
-		ValidDateTime(time);
-		//if (strcmp(str,"0")==0) return 0;
-		/*if (CheckChuoi(str,1,25)==-1) 
-	   {   
-			BaoLoi ("Dinh dang sai, nhap lai -HH:MM DD/MM/YYYY-"); 
-	       continue;
-	   }*/
-	   //strcpy(cb.timebay,str);strcpy(str,"");
-	  // i=0;
-	 //}
-	 TangLuotBay(ds1,d);
-	 cb.socot=ds1.nodes[d]->soday;cb.sodong=ds1.nodes[d]->sodong;cb.timebay=time;cb.dsve = new Ve[MAXVE];
+		}
+		CheckChuoi(str,4,29);
+		strcpy(cb.noiden,str);strcpy(str,"");i=0;
+	}	 
+	i=1;
+	gotoxy(cotNhap,dongNhap+5);
+	if (ValidDateTime(time)==0) return 0;
+	TangLuotBay(ds1,d);
+	cb.socot=ds1.nodes[d]->soday;cb.sodong=ds1.nodes[d]->sodong;cb.timebay=time;cb.dsve = new Ve[MAXVE];
 	if (CompareDateTimeToNow(cb.timebay)==0) strcpy(cb.trangthai,"3"); else strcpy(cb.trangthai,"1");
 	BaoLoi ("Da them chuyen bay.");
 	return 1;
@@ -137,27 +122,23 @@ void Insert_first(NODEPTRCB &First, ChuyenBay x)
    p->cb = x;
    p->next = First;
    First = p;
-   
 }
 void Insert_after(NODEPTRCB p, ChuyenBay x)
 {
    NODEPTRCB q;
    if(p == NULL)
-		printf("khong them sinh vien vao danh sach duoc");
+		printf("khong them chuyen bay vao danh sach duoc");
    else
    {
       q = New_node();
       q->cb = x;
       q->next = p->next;
       p->next = q;
-      
    }
 }
 
 void InsertOrderCB(NODEPTRCB &First, ChuyenBay x)
 {	
-
-	
    NODEPTRCB p, q;  // q la nut truoc, p la nut sau
    q = NULL;
    for(p = First; p != NULL && strcmp(p->cb.machbay,x.machbay)>0; p = p->next)
@@ -173,7 +154,7 @@ void Delete_first(NODEPTRCB &First)
 {
    NODEPTRCB p;
    if(Empty(First))
-      printf("Khong co sinh vien trong danh sach");
+      printf("Khong co chuyen bay trong danh sach");
    else
    {
       p = First;    // nut can xoa la nut dau
@@ -187,7 +168,7 @@ void Delete_after(NODEPTRCB &p)
    NODEPTRCB q;
    // neu p la NULL hoac p chi nut cuoi
    if((p == NULL) || (p->next == NULL))
-      printf("khong xoa sinh vien nay duoc");
+      printf("Khong xoa chuyen bay duoc");
    else
    {
       q = p->next;  // q chi nut can xoa
@@ -294,23 +275,20 @@ void SuaCB(nodeCB &ds, ChuyenBay &cb, listmb ds1, NODEPTRCB p){
 	   	
 	   	strcpy(cb.sohieumaybay,sh);strcpy(sh,"");i=0;
 	   	}
+	 i=1;
+	 while (i==1){
+	 */
 	 
-	 
-	 i=1;*/
-	 //while (i==1){
-		//NhapChuoi (  "Nhap time khoi hanh: ", str);
-		gotoxy(cotMenuSua,dongMenuSua+1);
-		ValidDateTime(time);//OutputDateTime(time);getch();
-		/*if (CheckChuoi(str,1,25)==-1) 
-	   {   
-			BaoLoi ("Dinh dang sai, nhap lai -HH:MM DD/MM/YYYY-"); 
-	       continue;
-	   }*/
-	   //strcpy(cb.timebay,str);strcpy(str,"");i=0;
-	   cb.timebay=time;
-	   if (CompareDateTimeToNow(p->cb.timebay)==0) strcpy(p->cb.trangthai,"3");
-	 //}
-	 p->cb=cb;
+	gotoxy(cotMenuSua,dongMenuSua+1);
+	cout<<"Sua time khoi hanh. ";
+	if (ValidDateTime(time)==0) return;
+	gotoxy(cotMenuSua,dongMenuSua+2);
+	cout<<"Ban chac chan huy chuyen bay nay?";
+	int chonYN = MenuYN(menuYN,30);
+	if (chonYN==0)
+	cb.timebay=time; else return;
+	if (CompareDateTimeToNow(p->cb.timebay)==0) strcpy(p->cb.trangthai,"3");
+	p->cb=cb;
 }
 void XoaCB(nodeCB &dscb,ChuyenBay cb,NODEPTRCB pp){
 	NODEPTRCB p, q;  // q la nut truoc, p la nut sau
@@ -401,19 +379,20 @@ void   EditMenu(int index, int preColor, int cot, int dong)
 	currposVeT = current;
 }
 
-
 int ChonVe(NODEPTRCB p)
 {	system ("cls");
 	ChuyenBay cb;
 	cb=p->cb;
-	char* macb2=strrev(cb.machbay);
+	/*char* macb2=strrev(cb.machbay);
 	int i=0;
 	while (macb2[i]!=char(32)) i++;
 	while (macb2[i]==char(32)){
 		macb2[i]=char(0);
 		i++;
 	}
-	macb2=strrev(macb2);
+	macb2=strrev(macb2);*/
+	char* macb2=cb.machbay;
+	while (macb2[0]==' ') strcpy(&macb2[0],&macb2[1]);
 	
 	gotoxy(cb.socot*6, 4); cout << "So do ghe chuyen bay "<<macb2;
 	gotoxy(cb.socot*6, 5); cout << "So ve da ban: "<<cb.sovedaban<<"/"<<cb.socot*cb.sodong;
@@ -562,15 +541,17 @@ void TimChuyenBayDatePlace( ){
 	char noiden[30];DATETIME date;
 	gotoxy(cotNhap,dongNhap);
 	NhapChuoi("Nhap noi den: ",noiden,29);
+	if (strcmp(noiden,"0")==0) return ;
+	CheckChuoi(noiden,4,0);
 	gotoxy(cotNhap,dongNhap+1);
-	ValidDate(date);
+	if (ValidDate(date)==0) return ;
 	NODEPTRCB p; int count=0;
     p = First;
     while (p!=NULL){
     	if (strcmp(p->cb.noiden,noiden)==0 && IsSame2Date(date,p->cb.timebay)==1 &&strcmp(p->cb.trangthai,"1")==0){
     		int sovecon = (p->cb.sodong*p->cb.socot) - p->cb.sovedaban;
     		gotoxy(cotNhap,dongNhap+2);
-    		cout<<"Thong tin: Ma CB     So ve trong            Time";
+    		cout<<"Thong tin: Ma CB     So ve con lai          Time";
     		gotoxy(cotNhap,dongNhap+3+count);
     		cout<<"\t"<<p->cb.machbay<<"\t\t"<<sovecon<<"\t\t";OutputDateTime(p->cb.timebay);
     		count++;
@@ -624,8 +605,8 @@ void InDsHanhKhach(ChuyenBay cb){
 			strcat(hoten,ptemp->ho);strcat(hoten," ");strcat(hoten,ptemp->ten);
 			gotoxy (1,count+5);
 			SetColor(White);
-  			printf ("%4d %8s %20s %40s %25s", count, 
-     		soghe, ptemp->cmnd, hoten, menuPhai[ptemp->phai]);
+  			printf ("%4d %8s %20s %40s %-10s %15s", count, 
+     		soghe, ptemp->cmnd, ptemp->ho, ptemp->ten, menuPhai[ptemp->phai]);
      		SetColor(Yellow);
 			gotoxy (0,count+5);cout << char(186); //  canh ngoai cung 2 ben
 			gotoxy (6,count+5);cout<<char(179); //3 canh nho o giua
@@ -656,6 +637,7 @@ void SaveFileCB(NODEPTRCB First,char *filename) {
  while(p != NULL)
    {	
    		cb=p->cb;
+//   		CheckChuoi(cb.noiden,4,0);
    	  fwrite (&(cb),sizeof(ChuyenBay),1,f);
    	  int soVe = cb.socot*cb.sodong;
 			for (int i = 0; i < soVe; i++){
