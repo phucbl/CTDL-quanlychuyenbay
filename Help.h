@@ -311,12 +311,13 @@ void NhapChuoi (char *tieude, char *S, int max) {
 			while(lenght<=max)
 			{	
 				int c=getch();
-				if (c==224||c==0||c=='.'||c=='+'||c=='-'||c=='*') {c=getch();continue;}
+				//if (c==224||c==0||c=='.'||c=='+'||c=='-'||c=='*') {c=getch();continue;}
+				if (c==224||c==0) {c=getch();continue;} //cac truong hop F chuc nang, va phim muoi ten
 				if (c==ESC) {strcpy(S,"0");break;}
-				//if (c=='['||c==']'||c==char (92)|| c=='='|| c==39 || c==';'||c==',') continue;
 				if ((c>=65&&c<=90)||(c<=122&&c>=97)||c==32||c==47||c==58||c==8||c==13||(c>=48&&c<=57)){
 					S[lenght]= char (c);
 				}
+				else continue;				
 				if (lenght ==0 && (S[lenght]=='\b' ||S[lenght]=='\r' )) { S[lenght]==char (0);continue;}
 				if (lenght >0 && S[lenght]=='\b'){
 					S[lenght]=char(0);
